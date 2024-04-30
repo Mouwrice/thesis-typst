@@ -1,0 +1,15 @@
+= MediaPipe Pose Landmarker
+
+The following section describes the MediaPipe Pose Landmarker solution @mediapipe-pose-landmarker. It first provides some context about the broader MediaPipe Framework before going into more detail on the MediaPipe Pose Landmarker solution.
+
+MediaPipe is a collection of on-device machine learning tools and solutions by Google @mediapipe. It consists of two main categories. There are the MediaPipe solutions, which have predefined "Tasks" that are ready to be used in your application @mediapipe-solutions. There are tasks on vision such as the detection and categorisation of object or the detection of hand gestures @mediapipe-gesture-recognition @mediapipe-object-detection. One of these vision solutions is the MediaPipe Pose Landmarker. Other solutions such as text classification and audio classification are also present @mediapipe-text-classification @mediapipe-audio-classification. On the other hand exists the MediaPipe Framework. It  is the low-level component used to build efficient on-device machine learning pipelines, similar to the premade MediaPipe Solutions @mediapipe-framework. The rest of this thesis only discusses the MediaPipe Pose Landmarker Solution from this point on and will often be referred to as just "MediaPipe" or "MediaPipe Pose" for brevity.
+
+MediaPipe Pose is available on three different platforms. One can use it in Python, on Android and on the web. However these are only just API's to interact with the actual detection task. The application presented in this thesis is completely written in Python but all the concepts that are discussed are applicable to any platform.
+
+=== Features
+
+The main feature of MediaPipe Pose is of course, just as all body pose estimation tools, to extract the body pose from a given image or video frame. 
+
+MediaPipe has three modes of operation, called the `RunningMode`. MediaPipe can work on still images (`IMAGE`), decoded video frames (`VIDEO`) and a live video feed (`LIVE_STREAM`) @mediapipe-pose-landmarker. Using the live video feed mode has some implications. When running MediaPipe in a real-time setting, the inference time of the model is constraint by this real-time application. When frame inference takes too long to be in the time window the frame gets dropped. Another major aspect of real-time applications is that the inference should not block the main thread and halt the program. This is why the inference in the `LIVE_STREAM` mode is performed asynchronously and results are propagated back using a callback function.
+
+One other feature other than returning the body pose is the creation of an image segmentation mask. MediaPipe has the ability to output a segmentation mask of the detected body pose. This mask could be used for e.g. applying some visual effects and post-processing but it is not of much use in this implementation.

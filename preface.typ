@@ -1,4 +1,4 @@
-_The author(s) gives (give) permission to make this master dissertation available for
+_The author gives permission to make this master dissertation available for
 consultation and to copy parts of this master dissertation for personal use.
 In all cases of other use, the copyright terms have to be respected, in particular with
 regard to the obligation to state explicitly the source when quoting results from this

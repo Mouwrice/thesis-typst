@@ -1,10 +1,17 @@
+#import "@preview/fontawesome:0.2.0": *
+#import "@preview/codly:0.2.0": *
+#import "@preview/drafting:0.2.0": *
+
+
+#let link-icon = super[#fa-arrow-up-right-from-square()]
+
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
 
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the IEEE.
 // Taken from https://github.com/typst/templates/tree/main/charged-ieee
-#let ieee(
+#let template(
   // The paper's title.
   title: [Paper Title],
 
@@ -32,10 +39,12 @@
   set text(font: "Noto Sans", lang: "en")
   set heading(numbering: "1.1")
 
+  show link: set text(style: "italic")
+
   pagebreak()
 
   // Configure the page.
-  set page(paper: "a4")
+  set page(paper: "a4", margin: 2.5cm)
 
   set align(center + horizon)
   preface
@@ -61,11 +70,34 @@
 
   // Table of contents.
   outline(depth: 3, indent: true)
-  pagebreak()
 
   set page(numbering: "1")
   counter(page).update(1)
 
+  set par(leading: 10pt, justify: true)
+  show par: set block(above: 1em, below: 2em)
+
+  show figure: set block(breakable: true, below: 2em)
+  show figure.caption: emph
+
+  let icon(codepoint) = {
+    box(
+      height: 0.8em,
+      baseline: 0.05em,
+      image(codepoint)
+    )
+    h(0.1em)
+  }
+
+  show: codly-init.with()
+  codly(languages: (
+    tsv: (name: "TSV", icon: icon("images/tsv.png"), color: gray),
+    csv: (name: "CSV", icon: icon("images/csv.png"), color: gray),
+  ))
+
+  set-page-properties()
+  
+  show heading.where(level: 1): it => pagebreak(weak: true) + it
 
   // Display the paper's contents.
   body

@@ -1,0 +1,89 @@
+tsv:
+  type: reference
+  title: Definition of tab-separated-values (tsv)
+  author: Paul Lindner
+  date: 1993-06
+  organization: Internet Assigned Numbers Authority
+  url:
+    value: https://www.iana.org/assignments/media-types/text/tab-separated-values
+    date: 2024-04-27
+
+golden-section-search:
+  type: proceedings
+  title: Sequential minimax search for a maximum
+  author: J. Kiefer
+  date: 1953
+  organization: Proceedings of the American Mathematical Society
+
+golden-section-search-wiki:
+  type: web
+  author: Wikipedia
+  title: Golden-section search
+  organization: Wikipedia
+  url:
+    value: https://en.wikipedia.org/wiki/Golden-section_search
+    date: 2024-04-28
+
+mediapipe:
+  type: web
+  author: Google
+  title: MediaPipe
+  url:
+    value: https://developers.google.com/mediapipe
+    date: 2024-04-30
+
+mediapipe-solutions:
+  type: web
+  author: Google
+  title: MediaPipe Solutions
+  url: 
+    value: https://developers.google.com/mediapipe/solutions/guide
+    date: 2024-04-30
+
+mediapipe-framework:
+  type: web
+  author: Google
+  title: MediaPipe Framework
+  url:
+    value: https://developers.google.com/mediapipe/framework
+    date: 2024-04-30
+
+mediapipe-text-classification:
+  type: web
+  author: Google
+  title: MediaPipe Text Classification
+  url:
+    value: https://developers.google.com/mediapipe/solutions/text/text_classifier
+    date: 2024-04-30
+
+mediapipe-audio-classification:
+  type: web
+  author: Google
+  title: MediaPipe Audio Classification
+  url:
+    value: https://developers.google.com/mediapipe/solutions/audio/audio_classifier
+    date: 2024-04-30
+
+mediapipe-object-detection:
+  type: web
+  author: Google
+  title: MediaPipe Audio Classification
+  url:
+    value: https://developers.google.com/mediapipe/solutions/vision/object_detector
+    date: 2024-04-30
+
+mediapipe-gesture-recognition:
+  type: web
+  author: Google
+  title: MediaPipe Audio Classification
+  url:
+    value: https://developers.google.com/mediapipe/solutions/vision/gesture_recognizer
+    date: 2024-04-30
+
+mediapipe-pose-landmarker:
+  type: web
+  author: Google
+  title: MediaPipe Audio Classification
+  url:
+    value: https://developers.google.com/mediapipe/solutions/vision/pose_landmarker
+    date: 2024-04-30
