@@ -28,14 +28,19 @@ jobs:
         with:
           cache-dependency-path: main.typ
       - name: Compile
-        run: typst compile --font-path ./ main.typ thesis.pdf
+        run: typst compile --font-path ./ main.typ output/thesis.pdf
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./output
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          artifact-name: thesis
+          path: ./output
 
   # Deployment job
   deploy:
