@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: fontist/setup-fontist@v2
-      - run: fontist install "Open Sans"
+      - run: fontist install "Noto Sans"
       - uses: typst-community/setup-typst@v3
         with:
           cache-dependency-path: main.typ
