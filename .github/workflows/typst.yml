@@ -23,13 +23,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - uses: fontist/setup-fontist@v2
-      - run: fontist manifest-install manifest.yml
+      - run: fontist install "Noto Sans"
       - uses: typst-community/setup-typst@v3
         with:
           cache-dependency-path: main.typ
       - name: Compile
-        run: typst compile main.typ thesis.pdf
+        run: typst compile --font-path ./ main.typ thesis.pdf
+        
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
