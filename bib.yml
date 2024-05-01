@@ -87,3 +87,31 @@ mediapipe-pose-landmarker:
   url:
     value: https://developers.google.com/mediapipe/solutions/vision/pose_landmarker
     date: 2024-04-30
+
+blazepose:
+  type: article
+  author: 
+    - Bazarevsky, Valentin
+    - Grishchenko, Ivan
+    - Raveendran, Karthik
+    - Zhu, Tyler
+    - Zhang, Fan
+    - Grundmann, Matthias
+  title: "BlazePose: On-device Real-time Body Pose tracking"
+
+ghum:
+  type: article
+  author:
+    - Xu, Hongyi
+    - Bazavan, Eduard Gabriel
+    - Zanfir, Andrei
+    - Freeman, William T.
+    - Sukthankar, Rahul
+    - Sminchisescu, Cristian
+  title: "GHUM & GHUML: Generative 3D Human Shape and Articulated Pose Models"
+
+
+coco:
+  type: web
+  author: COCO Consortium
+  title: "COCO 2020 Keypoint Detection Task"
