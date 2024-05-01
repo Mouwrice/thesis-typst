@@ -39,7 +39,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          artifact-name: thesis
           path: ./output
 
   # Deployment job
