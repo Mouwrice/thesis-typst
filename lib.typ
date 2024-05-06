@@ -38,6 +38,7 @@
   set document(title: title, author: authors.map(author => author.name))
   set text(font: "Noto Sans", lang: "en")
   set heading(numbering: "1.1")
+  set figure(placement: auto)
 
   show link: set text(style: "italic")
 

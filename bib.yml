@@ -88,6 +88,14 @@ mediapipe-pose-landmarker:
     value: https://developers.google.com/mediapipe/solutions/vision/pose_landmarker
     date: 2024-04-30
 
+mediapipe-blazepose:
+  type: web
+  author: Google
+  title: On-device, Real-time Body Pose Tracking with MediaPipe BlazePose
+  url: 
+    value: https://research.google/blog/on-device-real-time-body-pose-tracking-with-mediapipe-blazepose/
+    date: 2024-05-04
+
 blazepose:
   type: article
   author: 
@@ -115,3 +123,15 @@ coco:
   type: web
   author: COCO Consortium
   title: "COCO 2020 Keypoint Detection Task"
+
+cnn-pose:
+  type: article
+  author:
+    - Bulat, Adrian
+    - Tzimiropoulos, Georgios
+  title: Human pose estimation via Convolutional Part Heatmap Regression
+
+mediapipe-model-card:
+  type: article
+  author: Google
+  title: "Model Card: MediaPipe BlazePose GHUM 3D"
