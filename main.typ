@@ -30,9 +30,9 @@
 
 = A brief overview of the State Of The Art
 
-#include("mediapipe_pose.typ")
+#include "mediapipe_pose.typ"
 
-#include("measurements.typ")
+#include "measurements.typ"
 
 = Improving accuracy and reducing jitter
 

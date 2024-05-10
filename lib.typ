@@ -90,6 +90,19 @@
     h(0.1em)
   }
 
+  show table.cell.where(y: 0): set text(weight: "bold")
+  let frame(stroke) = (x, y) => (
+    left: if x > 0 { 0pt } else { stroke },
+    right: stroke,
+    top: if y < 2 { stroke } else { 0pt },
+    bottom: stroke,
+  )
+
+  set table(
+    fill: (_, y) => if calc.odd(y) { rgb("EAF2F5") },
+    stroke: frame(rgb("21222C")),
+  )
+
   show: codly-init.with()
   codly(languages: (
     tsv: (name: "TSV", icon: icon("images/tsv.png"), color: gray),
