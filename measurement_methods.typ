@@ -105,12 +105,12 @@ The MediaPipe Landmarks, on the other hand, do not actually correspond with a po
 MediaPipe also has a different kind of Landmarks (`Landmark`), namely the World Landmarks (`WorldLandmark`). These try to map the regular Landmarks, which are a point in the video frame, to a point in space. With the center of the hips taken as origin. The axis remain the same but are scaled so that the `WorldLandmarks` are in line with the actual size of movement in the space.
 
 This section gives a complete overview on how the MediaPipe signal has been aligned to match the Qualisys signal and provide a proper measurement on accuracy.
-The entire section uses a measurement of the vertical position of the left wrist marker, taken from MediaPipe using regular `Landmarks` and the `FULL` model. The plots in this section can be consulted in enlarged form in the appendices, @figures-appendix.
+The entire section uses a measurement of the vertical position of the left wrist marker, taken from MediaPipe using regular `Landmarks` and the `FULL` model.
 
 The output from the recordings are time series that can be plotted. The output from the measurements is read and without any processing plotted to a line plot in @left_wrist_axis_z_positions_base. On the horizontal axis is time in seconds. On the vertical axis is the value of the point in time in millimeter. @left_wrist_axis_z_positions_base shows a clear mismatch in axis. Plotted is the z-axis from both capture systems. But as mentioned, in MediaPipe the z-axis is the depth and not the vertical axis. 
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis without processing.])[
-  #image(width: 100%, "images/left_wrist_axis_z_positions_base.png")
+  #image(width: 100%, "images/left_wrist_axis_z_positions_base.svg")
 ] <left_wrist_axis_z_positions_base>
 
 The problem of mismatched axes is a very simple one to solve. Before plotting the MediaPipe signal we switch the axis so they match with the actual direction of axis in the Qualisys recording. The MediaPipe axes are thus mapped as follows:
@@ -124,19 +124,19 @@ Normally `Landmark` values would be in the range [0, 1], 0 being one side of the
 Secondly, all MediaPipe values have been multiplied by 1000. As the Qualisys output is in millimeter we already prepare the MediaPipe signal by interpreting the incoming signal as meter and converting it to millimeter. The MediaPipe `Landmark` signal has no real unit of course but interpreting it as meters allows for a simpler interpretation when it comes to scaling, explained later in this section.
 
 #figure(caption: [Plot of MediaPipe (Blue) and Qualisys (Red) left wrist z-axis after re-arranging the MediaPipe axes.])[
-  #image(width: 100%, "images/left_wrist_axis_z_positions_apply_axis_transformations.png")
+  #image(width: 100%, "images/left_wrist_axis_z_positions_apply_axis_transformations.svg")
 ] <left_wrist_axis_z_positions_apply_axis_transformations>
 
 Now that the basics are out of the way we can start aligning the signal. A first step is removing the average offset the MediaPipe signal has to the Qualisys signal. The method of walking over the dominant series (MediaPipe in this case) and gathering pairs of points from both series as discussed in the previous section, @comparing-time-series, is used for this. For every pair of points we can simply take the difference between those points. The average of these differences is then the offset of the MediaPipe signal. The result of removing this offset from the MediaPipe signal is displayed in @left_wrist_axis_z_positions_remove_offset.
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis with the average offset removed.])[
-  #image(width: 100%, "images/left_wrist_axis_z_positions_remove_offset.png")
+  #image(width: 100%, "images/left_wrist_axis_z_positions_remove_offset.svg")
 ] <left_wrist_axis_z_positions_remove_offset>
 
 With the two signals close together another problem becomes apparent. They are offset in time. This makes sense as both measurements cannot easily be started at exactly the same time. We need to introduce a starting offset. This starting offset should minimize the deviation between both signals. This is achieved by iteratively increasing a starting offset and capturing the offset that resulted in the least deviation. In @left_wrist_axis_z_positions_frame_offset it is shown that this method finds the most perfect offset. Both signals are perfectly aligned in time. After this offset operation the average vertical offset is computed again and subtracted from the signal.
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis with the time offset removed.])[
-  #image(width: 100%, "images/left_wrist_axis_z_positions_frame_offset.png")
+  #image(width: 100%, "images/left_wrist_axis_z_positions_frame_offset.svg")
 ] <left_wrist_axis_z_positions_frame_offset>
 
 
@@ -152,5 +152,5 @@ The optimization problem at hand can be solved using Golden-section search @gold
 Applying the Golden-section search method on our running example returns a scale factor of around 2 and results in a nice alignment between both signals (@left_wrist_axis_z_positions_stretch). The factor of 2 also makes sense. In the `Landmark` mode, the range of values lie between 0 and 1, reaching these outer values at the edges of the frame. As mentioned, the `Landmark` signal is interpreted to be in meter. As a consequence, the scaling factor is not only a scaling factor, it has become a measurement of the dimensions of what is visible in the frame. This means that the visible height in the video frame is 2 meters, at the location of the test subject, of course.
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis with the MediaPipe signal scaled to match.])[
-  #image(width: 100%, "images/left_wrist_axis_z_positions_stretch.png")
+  #image(width: 100%, "images/left_wrist_axis_z_positions_stretch.svg")
 ] <left_wrist_axis_z_positions_stretch>
