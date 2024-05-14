@@ -350,5 +350,35 @@ For any lateral movement, that is movement lateral to the image frame, the horiz
 Comparing the models, there is little accuracy to be gained from choosing a larger model. However, larger models provide a more stable signal, which can be essential as the drumming application mostly looks at the relative movements instead of absolute values.  As we are developing an application to be used live, the largest model that can achieve real-time inference is preferred. The inference time is of course dependent on the hardware, which means that in some cases the `HEAVY` model can be used but in other cases the `LITE` model is the only one that can be run in real-time, @inference-time.
 
 
-
 === Inference time <inference-time>
+
+=== Jitter
+
+One aspect that leads to a less stable signal is jitter. Jitter is the rapid, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings but is a factor that can lead to a less stable signal.
+
+#figure(
+  caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
+)[
+  #image("measurements/maurice_drum_fast/LITE/Right Wrist: Axis.Y.svg")
+] <jitter-example-right-wrist>
+
+
+=== Noise
+
+Another aspect that can lead to a less stable signal is noise. Noise is the random variation in the position of a tracked marker. This noise is mostly present when the tracked body part is not moving at all. It can be seen in the trajectories that larger models produce a less noise signal than smaller models. This is shown in @noise-example-right-heel. The noise is clearly visible in the `LITE` model, while the `FULL` and `HEAVY` models have a much more stable signal.
+
+#figure(
+  grid(
+    columns: (auto, auto),
+    rows: (auto, auto),
+[#image("measurements/maurice_drum_regular/LITE/Right Heel: Axis.Y.svg")
+],
+[#image("measurements/maurice_drum_regular/FULL/Right Heel: Axis.Y.svg")
+],
+[#image("measurements/maurice_drum_regular/HEAVY/Right Heel: Axis.Y.svg")
+]
+
+  ),
+  caption: [A noisy signal in the `maurice_drum_regular` measurement. Models: `LITE` (top left), `FULL` (top right), `HEAVY` (bottom left). Marker type: `Landmark`. Marker: `Right Heel`.],
+) <noise-example-right-heel>
+
