@@ -347,6 +347,8 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
 Now that we have compared the accuracy of all three models, we have a clear view of the expected accuracy.
 For any lateral movement, that is movement lateral to the image frame, the horizontal and vertical axis, an accuracy of 5-10 mm can be achieved with some deviations from that accuracy of at most 1 centimetre. There is however also the possibility for some jitter to occur in the resulting signal which can some major deviations from the actual movement, but these are only of short duration.
 
+The depth axis, the X axis, is considerably less accurate. The accuracy is around 40-60 mm with some deviations of up to 100 mm. The depth is as mentioned _"obtained via the GHUM model fitted to 2D point porjections."_ Unfortunately, this depth is not very usable for an air drumming application. The depth is also very unstable, with a high standard deviation and a high number of outliers. This is especially the case when the movements are fast and big.
+
 Comparing the models, there is little accuracy to be gained from choosing a larger model. However, larger models provide a more stable signal, which can be essential as the drumming application mostly looks at the relative movements instead of absolute values.  As we are developing an application to be used live, the largest model that can achieve real-time inference is preferred. The inference time is of course dependent on the hardware, which means that in some cases the `HEAVY` model can be used but in other cases the `LITE` model is the only one that can be run in real-time, @inference-time.
 
 
@@ -358,6 +360,7 @@ One aspect that leads to a less stable signal is jitter. Jitter is the rapid, un
 
 #figure(
   caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
+  placement: none,
 )[
   #image("measurements/maurice_drum_fast/LITE/Right Wrist: Axis.Y.svg")
 ] <jitter-example-right-wrist>
@@ -365,9 +368,49 @@ One aspect that leads to a less stable signal is jitter. Jitter is the rapid, un
 
 === Noise
 
-Another aspect that can lead to a less stable signal is noise. Noise is the random variation in the position of a tracked marker. This noise is mostly present when the tracked body part is not moving at all. It can be seen in the trajectories that larger models produce a less noise signal than smaller models. This is shown in @noise-example-right-heel. The noise is clearly visible in the `LITE` model, while the `FULL` and `HEAVY` models have a much more stable signal.
+Another aspect that can lead to a less stable signal is noise. Noise is the random variation in the position of a tracked marker. This noise is mostly present when the tracked body part is not moving at all. It can be seen in the trajectories that larger models produce a less noisy signal than smaller models. This is shown in @noise-example-right-heel. The noise is clearly visible in the `LITE` model, while the `FULL` and `HEAVY` models have a much more stable signal. It should be noted that the noise is rather small and is still in line with the accuracy values that were discussed earlier. The signal stability tables also clearly show that the noise is present in the `LITE` model but is reduced in the `FULL` and `HEAVY` models.
+
+#show table.cell.where(x: 0): set text(weight: "bold")
+#figure(
+  caption: [The signal stability from a noisy signal in the the `maurice_drum_regular` measurement. Models: `LITE`, `FULL`, `HEAVY`. Marker type: `Landmark`. Marker: `Right Heel`.],
+  placement: none,
+  grid(
+  columns: (auto),
+  rows: (auto, auto, auto),
+  gutter: 1em,
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+
+      table.header[`LITE` Stability][X][Y][Z],
+      [mean],      [8.537066],     [1.053139],     [2.158305],
+      [std ],      [8.288110],     [1.261807],     [2.967522],
+    )
+  ],
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[`FULL` Stability][X][Y][Z],
+      [mean],      [6.025950],     [0.589802],     [1.300819],
+      [std ],      [8.030914],     [0.914598],     [2.288527],
+    )
+  ],
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[`HEAVY` Stability][X][Y][Z],
+      [mean],      [5.830511],     [0.441127],    [1.026949],
+      [std ],      [6.083284],     [0.685263],    [1.925742],
+    )
+  ],
+  )
+) <noise-example-right-heel-stability>
 
 #figure(
+  placement: none,
   grid(
     columns: (auto, auto),
     rows: (auto, auto),
@@ -377,8 +420,6 @@ Another aspect that can lead to a less stable signal is noise. Noise is the rand
 ],
 [#image("measurements/maurice_drum_regular/HEAVY/Right Heel: Axis.Y.svg")
 ]
-
-  ),
+),
   caption: [A noisy signal in the `maurice_drum_regular` measurement. Models: `LITE` (top left), `FULL` (top right), `HEAVY` (bottom left). Marker type: `Landmark`. Marker: `Right Heel`.],
 ) <noise-example-right-heel>
-
