@@ -356,7 +356,7 @@ Comparing the models, there is little accuracy to be gained from choosing a larg
 
 === Jitter
 
-One aspect that leads to a less stable signal is jitter. Jitter is the rapid, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings but is a factor that can lead to a less stable signal.
+One aspect that leads to a less stable signal is jitter. Jitter is the sudden, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings but is a factor that can lead to a less stable signal. Jitter occurs less frequently in the larger models, which partly explains the increased signal stability using these models.
 
 #figure(
   caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
@@ -368,12 +368,12 @@ One aspect that leads to a less stable signal is jitter. Jitter is the rapid, un
 
 === Noise
 
-Another aspect that can lead to a less stable signal is noise. Noise is the random variation in the position of a tracked marker. This noise is mostly present when the tracked body part is not moving at all. It can be seen in the trajectories that larger models produce a less noisy signal than smaller models. This is shown in @noise-example-right-heel. The noise is clearly visible in the `LITE` model, while the `FULL` and `HEAVY` models have a much more stable signal. It should be noted that the noise is rather small and is still in line with the accuracy values that were discussed earlier. The signal stability tables also clearly show that the noise is present in the `LITE` model but is reduced in the `FULL` and `HEAVY` models.
+Another aspect that can lead to a less stable signal is noise. Noise is the random variation in the position of a tracked marker. This noise is mostly present when the tracked body part is not moving at all. It can be seen in the trajectories that larger models produce a less noisy signal than smaller models. This is shown in @noise-example-right-heel. The noise is clearly visible in the `LITE` model, while the `FULL` and `HEAVY` models have a much more stable signal. It should be noted that the noise is rather small and is still in line with the accuracy values that were discussed earlier. The signal stability tables also clearly show that the noise is present in the `LITE` model but is reduced in the `FULL` and `HEAVY` models. (@noise-example-right-heel-stability)
 
 #show table.cell.where(x: 0): set text(weight: "bold")
 #figure(
   caption: [The signal stability from a noisy signal in the the `maurice_drum_regular` measurement. Models: `LITE`, `FULL`, `HEAVY`. Marker type: `Landmark`. Marker: `Right Heel`.],
-  placement: none,
+  placement: auto,
   grid(
   columns: (auto),
   rows: (auto, auto, auto),
@@ -410,7 +410,7 @@ Another aspect that can lead to a less stable signal is noise. Noise is the rand
 ) <noise-example-right-heel-stability>
 
 #figure(
-  placement: none,
+  placement: auto,
   grid(
     columns: (auto, auto),
     rows: (auto, auto),
@@ -423,3 +423,47 @@ Another aspect that can lead to a less stable signal is noise. Noise is the rand
 ),
   caption: [A noisy signal in the `maurice_drum_regular` measurement. Models: `LITE` (top left), `FULL` (top right), `HEAVY` (bottom left). Marker type: `Landmark`. Marker: `Right Heel`.],
 ) <noise-example-right-heel>
+
+
+=== Resolution
+
+Following the description of the model network of the MediaPipe Pose Task, we know that the input has a fixed size of 256x256x3. This means that the resolution of the input image is 256x256 pixels. As a result of this fixed input size, we should see no significant difference in accuracy when using different resolutions. There might be a slight difference in the accuracy due to the image being resized to fit the input size, but this difference should be negligible. This hypothesis is tested by comparing the deviation of the `maurice_drum_regular` measurement at different resolutions. The resolutions used are 1080p, 720p, and 480p.
+#footnote[The original measurement video was also captured in 1080p but was encoded again with the same encoding settings used to achieve the smaller resolution videos, except for the resolution, of course. This was done to make sure that the video quality and encoding are the same. It is also the reason for slightly different results for the 1080p resolution in previous tables, which the very attentive reader might have noticed.] The deviation values are shown in @resolution-deviations. The deviation values are very similar. This means that the resolution of the input image does not significantly impact the accuracy of the model.
+
+#figure(
+  caption: [The accuracy of different resolutions of the `maurice_drum_regular` measurement. Model: `FULL`. Marker type: `Landmark`.],
+  placement: auto,
+  grid(
+  columns: (auto),
+  rows: (auto, auto, auto),
+  gutter: 1em,
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+
+      table.header[`1080p` Deviation (mm)][X][Y][Z],
+      [mean],   [40.076227],     [10.396079],     [12.230394],
+      [std ],   [49.000929],     [10.724212],     [14.250999],
+    )
+  ],
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[`720p` Deviation (mm)][X][Y][Z],
+      [mean],   [39.937372],     [10.387030],     [12.473164],
+      [std ],   [48.821626],     [10.771447],     [14.450003],
+    )
+  ],
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[`480p` Deviation (mm)][X][Y][Z],
+      [mean],  [41.670763],     [11.361194],     [11.975922],
+      [std ],  [48.763101],     [11.131461],     [14.568390],
+    )
+  ],
+  )
+) <resolution-deviations>
