@@ -352,7 +352,27 @@ The depth axis, the X axis, is considerably less accurate. The accuracy is aroun
 Comparing the models, there is little accuracy to be gained from choosing a larger model. However, larger models provide a more stable signal, which can be essential as the drumming application mostly looks at the relative movements instead of absolute values.  As we are developing an application to be used live, the largest model that can achieve real-time inference is preferred. The inference time is of course dependent on the hardware, which means that in some cases the `HEAVY` model can be used but in other cases the `LITE` model is the only one that can be run in real-time, @inference-time.
 
 
-=== Inference time <inference-time>
+=== Achievable framerate <inference-time>
+
+The framerate that can be achieved should be high enough for a proper real-time application. The higher the framerate the more responsive the application will feel and the more accurate the tracking will be. A higher framerate also allows for faster motions to be capture, which is handy in the case of fast drumming motions. The framerate is dependent on the hardware used, but also on the model that is used. The larger the model, the more computationally expensive it is to run the inference. The following table (@framerate-table) lists the maximum framerate was can be achieved for each model as well as the device that was used to run the inference.
+
+#figure(
+  caption: [The maximum framerate (fps) that can be achieved for each model with different devices.],
+  placement: none
+)[
+  #table(
+    columns: (auto, 2fr, 2fr, 2fr),
+    align: (left, right, right, right),
+    table.header[Device (fps)][`LITE`][`FULL`][`HEAVY`],
+    [CPU Intel Core i7-10750H], [25], [20], [7],
+    [GPU Intel(R) UHD Graphics 630], [19], [17], [11],
+    [CPU AMD Ryzen 5 5600X], [40], [30], [10],
+    [GPU NVIDIA RTX 2060], [45], [42], [40],
+  )
+] <framerate-table>
+
+The table shows that the `LITE` model can be run in real-time on all devices. The `FULL` model can also be run in real-time on most devices, but the `HEAVY` model is too computationally expensive to run in real-time on most devices. The `HEAVY` model can only be run in real-time on the NVIDIA RTX 2060 GPU. It is no surprise that the GPU is the most performant of the four devices. However, despite being able to run the `HEAVY` model at a constant 40 fps, its performance on the smaller models is surprisingly not a lot higher. We can conclude that the GPU has a lot of power but lacks the clock speed of a CPU, hence the good results for the `HEAVY` model and the not much improved results for the smaller models. This difference between power and clock speed also becomes apparent when comparing the Intel Core i7-10750H and the AMD Ryzen 5 5600X. The AMD Ryzen 5 5600X has a higher clock speed and is able to run the `FULL` model at 30 fps, while the Intel Core i7-10750H can only run the `FULL` model at 20 fps. The `HEAVY` model is too computationally expensive for both devices.
+On the `LITE` model however they are on par with the GPU's. The Intel Core i7-10750H can run the `LITE` model at 25 fps, while the AMD Ryzen 5 5600X can run the `LITE` model at 40 fps. The Intel(R) UHD Graphics 630 and the NVIDIA GeForce 2060 GPU can run the `LITE` model at 19 and 45 fps respectively. 
 
 === Jitter
 
