@@ -2,11 +2,13 @@
 
 == Results
 
-In this section all the measurement results are listed and discussed. The results go over the effect of the different MediaPipe Pose models (LITE, FULL, and HEAVY) and the accuracy and frame rate that was achieved. All measurements are performed with `GL version: 3.2 (OpenGL ES 3.2 NVIDIA 550.78)` on an ` NVIDIA GeForce RTX 2060` GPU and a `Intel(R) Core(TM) i7-9750H (12) @ 2,60 GHz` as CPU, unless specified otherwise. The actual inference is executed on the GPU while the rest of the application just runs on the CPU with minimal overhead. It is the inference that is the most time-consuming element.
+In this section all the measurement results are listed and discussed. The results go over the effect of the different MediaPipe Pose models (`LITE`, `FULL`, and `HEAVY`) and the accuracy and frame rate that was achieved. All measurements are performed with `GL version: 3.2 (OpenGL ES 3.2 NVIDIA 550.78)` on a ` NVIDIA GeForce RTX 2060` GPU and an `Intel(R) Core(TM) i7-9750H (12) @ 2,60 GHz` CPU, unless specified otherwise. The actual inference is executed on the GPU while the rest of the application just runs on the CPU with minimal overhead. It is the inference that is the most time-consuming element.
 
-The results discuss the accuracy and signal stability of the MediaPipe result. The accuracy is the deviation from the MediaPipe recordings using the techniques from the previous chapter. The signal stability is the absolute value of the derivates of these deviations. The derivative is numerically computer by taking the difference of two succeeding deviation values. By taking the absolute value, we get a measure of how much the deviation differs per frame and thus how stable the signal is. The lower this value, the better the signal stability. All of these values are taken per frame and per tracked marker. They are then described in box plots with a corresponding table. Indicating the mean, standard deviation, min, max, and some percentiles.
-Since there is too much data to be included in this thesis text, all measurements are made publicly available on a GitHub repository.
-#footnote[Follow this link to the GitHub repository: #link("https://github.com/Mouwrice/DrumPyAnalysis")[Mouwrice/DrumPyAnalysis #link-icon]. All measurement results are located in the `measurements` folder. Every measurement is in a separate folder with the folder name being a very brief description of the measurement. Inside every measurement folder are the actual results grouped by the MediaPipe model that was used.]
+The results discuss the accuracy and signal stability of the MediaPipe result, as well as some aspects that affect the signal. The accuracy is the deviation from the MediaPipe recordings using the techniques from the previous chapter. The signal stability is the absolute value of the derivates of these deviations. The derivative is numerically computed by taking the difference of two succeeding deviation values. By taking the absolute value, we get a measure of how much the deviation differs per frame and thus how stable the signal is. The lower this value, the better the signal stability. All of these values are taken per frame and per tracked marker. They are then described in box plots with a corresponding table. Indicating the mean, standard deviation, min, max, and some percentiles.
+Since there is too much data to be included in this thesis text, all measurement results are made publicly available on a GitHub repository.
+#footnote[Follow this link to the GitHub repository: #link("https://github.com/Mouwrice/DrumPyAnalysis")[Mouwrice/DrumPyAnalysis #link-icon]. All measurement results are located in the `measurements` folder. Every measurement is in a separate folder, with the folder name being a very brief description of the measurement. Inside every measurement folder are the actual results, grouped by the MediaPipe model that was used.]
+
+
 
 === Results Example
 
@@ -68,7 +70,7 @@ Lastly, the deviation and stability values are also made available by describing
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability][X][Y][Z],
+    table.header[Stability (mm)][X][Y][Z],
 [mean],    [ 13.498988],    [ 1.621383],    [ 2.256355],
 [std] ,    [ 14.644994],    [ 2.919033],    [ 4.950195],
 [min] ,    [  0.000851],    [ 0.000011],    [ 0.000156],
@@ -92,9 +94,9 @@ For each model, 3 results are provided, each result being from one specific reco
 
 The `LITE` model is 3 MB in size and is the smallest model available.
 
-The total deviation of all three recordings are displayed in @mau-drum-small-lite-total, @mau-drum-regular-lite-total, and @mau-drum-fast-lite-total, respectively. We can immediately draw some conclusions from these results. The Y and Z axis (horizontal and vertical) have a relatively good accuracy compared to the X axis (depth). The depth is actually very imprecise and unstable, having a high mean deviation and a high standard deviation makes this depth not very usable. It also indicates that the wider the range of movements and the speed at which they are performed results in a slight drop in accuracy. Almost all deviation values are slightly higher than their corresponding values from a recording featuring less and slower movement.
+The total deviation of all three recordings are displayed in @mau-drum-small-lite-total, @mau-drum-regular-lite-total, and @mau-drum-fast-lite-total, respectively. We can immediately draw some conclusions from these results. The Y and Z axis (horizontal and vertical) have a relatively good accuracy compared to the x-axis (depth). The depth is actually very imprecise and unstable, having a high mean deviation and a high standard deviation makes this depth not very usable. It also indicates that the wider the range of movements and the speed at which they are performed results in a slight drop in accuracy. Almost all deviation values are slightly higher than their corresponding values from a recording featuring less and slower movement.
 
-Despite the X axis being very imprecise, the Y and Z axis consistently achieve an accuracy of minimum 1 centimetre. For an air drumming application, this level of accuracy is already pretty usable.
+Despite the x-axis being very imprecise, the Y and Z axis consistently achieve an accuracy of minimum 1 centimetre. For an air drumming application, this level of accuracy is already pretty usable.
 
 #show table.cell.where(x: 0): set text(weight: "bold")
 
@@ -156,10 +158,7 @@ Despite the X axis being very imprecise, the Y and Z axis consistently achieve a
 
 ==== FULL
 
-The `FULL` models is double the size of the `LITE` model, at 6 MB. But that does not mean the deviation is halved. Compared to the `LITE` model the average accuracy is increased by 1 and at most 2 mm. The signal stability, however, improves a bit using this heavier model. Some outlier values are also reduced. This indicates that the `FULL` model provides better results but only with a marginal increase in accuracy.
-
-#show table.cell.where(x: 0): set text(weight: "bold")
-
+The `FULL` models is double the size of the `LITE` model, at 6 MB. But that does not mean the deviation is halved. Compared to the `LITE` model, the average accuracy is increased by 1 and at most 2 mm. The standard deviation is reduced a bit using this heavier model. Some outlier values are also reduced. This indicates that the `FULL` model provides a cleaner result but only with a marginal increase in accuracy.
 
 #figure(
   caption: [The total deviation from the `maurice_drum_small` measurement. Model: `FULL`, Marker type: `Landmark`.],
@@ -219,7 +218,7 @@ The `FULL` models is double the size of the `LITE` model, at 6 MB. But that does
 
 ==== HEAVY
 
-The `HEAVY` model is the largest of them all at a size of 26 MB. At this level, we have clearly reached a point of diminishing returns. Despite increasing the model size by a factor of 4, the improvements are not a big jump up. The jump in accuracy from `FULL` to `HEAVY` is similar to the jump from `LIGHT` to `FULL`, again increasing the accuracy by 1 mm. The X axis also gets an increase in accuracy but proves to still be too unstable and imprecise to be of any use. At this point, the axis lateral to the image frames (Y and Z) are considerably accurate, reaching an average accuracy of 5 and 7 mm respectively. Just as with the smaller models, larger movements lead to a slight drop in accuracy, there is especially an increase in outliers.
+The `HEAVY` model is the largest of them all at a size of 26 MB. At this level, we have clearly reached a point of diminishing returns. Despite increasing the model size by a factor of 4, the improvements are not a big jump up. The jump in accuracy from `FULL` to `HEAVY` is similar to the jump from `LIGHT` to `FULL`, again increasing the accuracy by 1 mm. The x-axis also gets an increase in accuracy but proves to still be too unstable and imprecise to be of any use. At this point, the axis lateral to the image frames (Y and Z) are considerably accurate, reaching an average accuracy of 5 and 7 mm respectively. Just as with the smaller models, larger movements lead to a slight drop in accuracy, there is especially an increase in outliers.
 
 #figure(
   caption: [The total deviation from the `maurice_drum_small` measurement. Model: `HEAVY`, Marker type: `Landmark`.],
@@ -278,11 +277,10 @@ The `HEAVY` model is the largest of them all at a size of 26 MB. At this level, 
 
 ==== Signal stability
 
-One metric that has been left out, so far, is the signal stability. The deviation tables above hint that a heavier model might not just provide a small increase in accuracy, but also provide an increase in signal stability.
+One metric that has been left out, so far, is the signal stability. The deviation tables above hint that a heavier model might not just provide a small increase in accuracy, but also provide an increase in signal stability. This is hinted at by the lower standard deviation and the lower 75% percentile values.
 Having a more stable signal, meaning less outliers and a more consistent deviation difference between frames, is also an important aspect. The following tables plot the signal stability for every model on the `maurice_drum_regular` measurement. Remember that the signal stability is calculated as the absolute difference in deviation between consecutive frames, the lower the values the better.
 
 
-#show table.cell.where(x: 0): set text(weight: "bold")
 #figure(
   caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
@@ -290,7 +288,7 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability][X][Y][Z],
+    table.header[Stability (mm)][X][Y][Z],
     [mean],     [  7.764771],    [  1.352941],    [  2.096501],
     [std ],     [ 10.085330],    [  2.809363],    [  4.220660],
     [min ],     [  0.000014],    [  0.000023],    [  0.000073],
@@ -301,7 +299,6 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   )
 ] <drum-regular-lite-sta-table>
 
-#show table.cell.where(x: 0): set text(weight: "bold")
 #figure(
   caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
@@ -309,7 +306,7 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability][X][Y][Z],
+    table.header[Stability (mm)][X][Y][Z],
     [mean],     [  7.579568],     [ 1.106332],     [ 1.694458],
     [std ],     [ 10.574589],     [ 2.057231],     [ 3.608910],
     [min ],     [  0.000109],     [ 0.000078],     [ 0.000012],
@@ -320,7 +317,6 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   )
 ] <drum-regular-full-sta-table>
 
-#show table.cell.where(x: 0): set text(weight: "bold")
 #figure(
   caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
@@ -328,7 +324,7 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability][X][Y][Z],
+    table.header[Stability (mm)][X][Y][Z],
     [mean],     [  6.122471],     [ 0.979171],     [ 1.511921],
     [std ],     [  8.788107],     [ 1.873792],     [ 3.426255],
     [min ],     [  0.000077],     [ 0.000090],     [ 0.000053],
@@ -339,7 +335,7 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   )
 ] <drum-regular-heavy-sta-table>
 
-@drum-regular-lite-sta-table, @drum-regular-full-sta-table and @drum-regular-heavy-sta-table clearly demonstrate that a larger model not only increases accuracy but also the signal stability. The effect is modest, with the most significant difference being the values going from the `LITE` model to the `FULL` model. This effect is also noticeable when viewing the inference visualization, where we can see that the `FULL` model provides a more stable result.
+@drum-regular-lite-sta-table, @drum-regular-full-sta-table and @drum-regular-heavy-sta-table clearly demonstrate that a larger model not only increases accuracy but also the signal stability. The effect is modest, with the most significant difference being the values going from the `LITE` model to the `FULL` model. This effect is also noticeable when viewing the inference visualization, where we can see that the `FULL` model provides a more stable result. The markers are less jittery and their movements are 'smoother'.
 
 
 ==== Conclusion
@@ -347,14 +343,15 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
 Now that we have compared the accuracy of all three models, we have a clear view of the expected accuracy.
 For any lateral movement, that is movement lateral to the image frame, the horizontal and vertical axis, an accuracy of 5-10 mm can be achieved with some deviations from that accuracy of at most 1 centimetre. There is however also the possibility for some jitter to occur in the resulting signal which can some major deviations from the actual movement, but these are only of short duration.
 
-The depth axis, the X axis, is considerably less accurate. The accuracy is around 40-60 mm with some deviations of up to 100 mm. The depth is as mentioned _"obtained via the GHUM model fitted to 2D point porjections."_ Unfortunately, this depth is not very usable for an air drumming application. The depth is also very unstable, with a high standard deviation and a high number of outliers. This is especially the case when the movements are fast and big.
+The depth axis, the x-axis, is considerably less accurate. The accuracy is around 40-60 mm with some deviations of up to 100 mm. The depth is as mentioned _"obtained via the GHUM model fitted to 2D point porjections."_ Unfortunately, this depth is not very usable for an air drumming application. The depth is also very unstable, with a high standard deviation and a high number of outliers. This is especially the case when the movements are fast and big.
 
-Comparing the models, there is little accuracy to be gained from choosing a larger model. However, larger models provide a more stable signal, which can be essential as the drumming application mostly looks at the relative movements instead of absolute values.  As we are developing an application to be used live, the largest model that can achieve real-time inference is preferred. The inference time is of course dependent on the hardware, which means that in some cases the `HEAVY` model can be used but in other cases the `LITE` model is the only one that can be run in real-time, @inference-time.
+Comparing the models, there is little accuracy to be gained from choosing a larger model. However, larger models provide a more stable signal, which can be essential as the drumming application mostly looks at the relative movements instead of absolute values.  As we are developing an application to be used live, the largest model that can achieve real-time inference is preferred. The inference time is of course dependent on the hardware, which means that in some cases the `HEAVY` model can be used but in other cases the `LITE` model is the only one that can be properly run in real-time, @inference-time.
 
 
 === Achievable framerate <inference-time>
 
-The framerate that can be achieved should be high enough for a proper real-time application. The higher the framerate the more responsive the application will feel and the more accurate the tracking will be. A higher framerate also allows for faster motions to be capture, which is handy in the case of fast drumming motions. The framerate is dependent on the hardware used, but also on the model that is used. The larger the model, the more computationally expensive it is to run the inference. The following table (@framerate-table) lists the maximum framerate was can be achieved for each model as well as the device that was used to run the inference.
+The frame rate that can be achieved should be high enough for a proper real-time application. The higher the frame rate, the more responsive the application will feel and the more accurate the tracking can be. A higher frame rate also allows for faster motions to be captured, which is handy in the case of fast drumming motions. The frame rate is dependent on the hardware used, but also on the model that is used. The larger the model, the more computationally expensive it is to run the inference. The following table (@framerate-table) lists the maximum frame rate that can be achieved for each model, as well as the device that was used to run the inference.
+
 
 #figure(
   caption: [The maximum framerate (fps) that can be achieved for each model with different devices.],
@@ -365,18 +362,24 @@ The framerate that can be achieved should be high enough for a proper real-time 
     align: (left, right, right, right),
     table.header[Device (fps)][`LITE`][`FULL`][`HEAVY`],
     [CPU Intel Core i7-10750H], [25], [20], [7],
-    [GPU Intel(R) UHD Graphics 630], [19], [17], [11],
+    [GPU Intel UHD Graphics 630], [19], [17], [11],
     [CPU AMD Ryzen 5 5600X], [40], [30], [10],
     [GPU NVIDIA RTX 2060], [45], [42], [40],
   )
 ] <framerate-table>
 
-The table shows that the `LITE` model can be run in real-time on all devices. The `FULL` model can also be run in real-time on most devices, but the `HEAVY` model is too computationally expensive to run in real-time on most devices. The `HEAVY` model can only be run in real-time on the NVIDIA RTX 2060 GPU. It is no surprise that the GPU is the most performant of the four devices. However, despite being able to run the `HEAVY` model at a constant 40 fps, its performance on the smaller models is surprisingly not a lot higher. We can conclude that the GPU has a lot of power but lacks the clock speed of a CPU, hence the good results for the `HEAVY` model and the not much improved results for the smaller models. This difference between power and clock speed also becomes apparent when comparing the Intel Core i7-10750H and the AMD Ryzen 5 5600X. The AMD Ryzen 5 5600X has a higher clock speed and is able to run the `FULL` model at 30 fps, while the Intel Core i7-10750H can only run the `FULL` model at 20 fps. The `HEAVY` model is too computationally expensive for both devices.
-On the `LITE` model however they are on par with the GPU's. The Intel Core i7-10750H can run the `LITE` model at 25 fps, while the AMD Ryzen 5 5600X can run the `LITE` model at 40 fps. The Intel(R) UHD Graphics 630 and the NVIDIA GeForce 2060 GPU can run the `LITE` model at 19 and 45 fps respectively. 
+The table shows that the `LITE` model can be run in real-time on all devices. The `FULL` model can also be run in real-time on most devices, but the `HEAVY` model is too computationally expensive to run in real-time on most devices. The `HEAVY` model can only be run in real-time on the NVIDIA RTX 2060 GPU. It is no surprise that the GPU is the most performant of the four devices. However, despite being able to run the `HEAVY` model at a constant 40 fps, the GPU's performance on the smaller models is surprisingly not a lot higher. We can conclude that the GPU has a lot of power but lacks the speed of a CPU
+#footnote[A CPU typically has a higher clock speed than a GPU, allowing to perform many more consecutive operations per second. A GPU is mainly designed to perform many operations simultaneously.
+], hence the good results for the `HEAVY` model and the not much improved results for the smaller models. This difference between power and speed also becomes apparent when comparing the Intel Core i7-10750H and the AMD Ryzen 5 5600X. The AMD Ryzen 5 5600X has a higher clock speed and can run the `FULL` model at 30 fps, while the Intel Core i7-10750H can only run the `FULL` model at 20 fps. The `HEAVY` model is too computationally expensive for both devices.
+On the `LITE` model, however, they are on par with the GPU's. The Intel Core i7-10750H can run the `LITE` model at 25 fps, while the AMD Ryzen 5 5600X can run the `LITE` model at 40 fps. The Intel UHD Graphics 630 and the NVIDIA GeForce 2060 GPU can run the `LITE` model at 19 and 45 fps respectively. 
+
+The conclusion is that the `FULL` model is the best model to use for real-time applications. It provides a good balance between accuracy and frame rate. The `HEAVY` model is too computationally expensive to run in real-time on most devices, while the `LITE` model is somewhat unstable to rely on. The `FULL` model can be run in real-time on most (modern) devices, providing a good balance between accuracy and frame rate.
+If the device is not powerful enough to run the `FULL` model in real-time, the `LITE` model can be used as a fallback.
+
 
 === Jitter
 
-One aspect that leads to a less stable signal is jitter. Jitter is the sudden, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings but is a factor that can lead to a less stable signal. Jitter occurs less frequently in the larger models, which partly explains the increased signal stability using these models.
+One aspect that leads to a less stable signal is jitter. Jitter is the sudden, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings but is a factor that can lead to a less stable signal. Jitter occurs less frequently in the larger models, which partly explains the increased signal stability using these models. When developing an application that relies on the stability of the signal, it is important to acknowledge that jitter can occur and that it can lead to a less stable signal.
 
 #figure(
   caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
@@ -448,7 +451,8 @@ Another aspect that can lead to a less stable signal is noise. Noise is the rand
 === Resolution
 
 Following the description of the model network of the MediaPipe Pose Task, we know that the input has a fixed size of 256x256x3. This means that the resolution of the input image is 256x256 pixels. As a result of this fixed input size, we should see no significant difference in accuracy when using different resolutions. There might be a slight difference in the accuracy due to the image being resized to fit the input size, but this difference should be negligible. This hypothesis is tested by comparing the deviation of the `maurice_drum_regular` measurement at different resolutions. The resolutions used are 1080p, 720p, and 480p.
-#footnote[The original measurement video was also captured in 1080p but was encoded again with the same encoding settings used to achieve the smaller resolution videos, except for the resolution, of course. This was done to make sure that the video quality and encoding are the same. It is also the reason for slightly different results for the 1080p resolution in previous tables, which the very attentive reader might have noticed.] The deviation values are shown in @resolution-deviations. The deviation values are very similar. This means that the resolution of the input image does not significantly impact the accuracy of the model.
+#footnote[The original measurement video was also captured in 1080p but was encoded again with the same encoding settings used to achieve the smaller resolution videos, except for the resolution, of course. This was done to make sure that the video quality and encoding are the same. It is also the reason for slightly different results for the 1080p resolution in previous tables, which the very attentive reader might have noticed.] The deviation values are shown in @resolution-deviations. The deviation values are very similar.
+Thus follows that the resolution of the input image does not significantly affect the accuracy of the model. This is good news, as it means that the model can be used on different devices with different resolutions without a significant loss in accuracy.
 
 #figure(
   caption: [The accuracy of different resolutions of the `maurice_drum_regular` measurement. Model: `FULL`. Marker type: `Landmark`.],
@@ -487,3 +491,89 @@ Following the description of the model network of the MediaPipe Pose Task, we kn
   ],
   )
 ) <resolution-deviations>
+
+
+=== World Landmarks
+
+All previous results are from measurements with the `Landmark` as marker type. These are points that have coordinates in the image frame with an added depth value. MediaPipe also provides `WorldLandmarks` as a marker type. These are real-world 3D coordinates. The values are in meters and are relative to the midpoint between the hips. MediaPipe tries to predict the size of the person in the frame and uses this to scale the world landmarks. `WorldLandmarks` allows to decouple the marker locations from the image frame. With them, one can track the movements relative to the person instead of the image frame. This can be useful when the person is moving around in the frame or when the person is moving towards or away from the camera. As this adds another layer of uncertainty (the scale of the person in the frame is but a prediction), the accuracy of the `WorldLandmarks` is expected to be lower than the `Landmarks`.
+
+The deviation values for the `WorldLandmarks` are shown in @world-landmarks-deviations. The deviation values are indeed higher than the deviation values for the `Landmarks`. The same can be observed for the signal stability in @world-landmarks-stability. If accuracy is the main concern, the `Landmarks` should be used. If the movements are relative to the person, the `WorldLandmarks` should be used. One might also opt for a combination of both, as MediaPipe outputs both types of landmarks.
+#footnote[Note that the depth values are improved with the `WorldLandmarks` marker type. This is attributed to a better scaling factor than the somewhat arbitrary scaling factor of 0.5 that was chosen in the x-axis alignment. The depth values are still as inaccurate as before, but the entire scaling of the depth axis is just a bit better. These `WorldLandmark` depth values would still converge to zero if the Golden-section search is applied.]
+
+#figure(
+  caption: [The accuracy of `WorldLandmarks` compared to the accuracy of `Landmarks`. Model: `FULL`. Measurement: `maurice_drum_regular`.],
+  placement: none,
+  grid(
+  columns: (auto),
+  rows: (auto, auto, auto),
+  gutter: 1em,
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+
+      table.header[`Landmark` Deviation (mm)][X][Y][Z],
+      [mean],    [ 44.054789],     [ 5.877316],     [10.028784],
+      [std ],    [ 52.458578],     [ 6.611694],     [10.963382],
+      [min ],    [  0.000578],     [ 0.000225],     [ 0.001258],
+      [25% ],    [  8.880800],     [ 1.829242],     [ 2.919620],
+      [50% ],    [ 24.080457],     [ 4.135115],     [ 6.481524],
+      [75% ],    [ 64.801731],     [ 7.475370],     [13.322674],
+      [max ],    [423.136841],     [68.750352],     [91.792725],
+    )
+  ],
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[`WorldLandmark` Deviation (mm)][X][Y][Z],
+      [mean],    [ 40.064675],     [10.425273],    [ 12.136874],
+      [std ],    [ 49.167113],     [10.624388],    [ 13.952320],
+      [min ],    [  0.003811],     [ 0.000245],    [  0.001166],
+      [25% ],    [  7.237019],     [ 3.242694],    [  2.720210],
+      [50% ],    [ 22.192832],     [ 7.156534],    [  7.904396],
+      [75% ],    [ 57.645794],     [13.916220],    [ 16.739466],
+      [max ],    [364.849119],     [81.609742],    [147.278370],
+    )
+  ],
+  )
+) <world-landmarks-deviations>
+
+#figure(
+  caption: [The stability of `WorldLandmarks` compared to the stability of `Landmarks`. Model: `FULL`. Measurement: `maurice_drum_regular`.],
+  placement: none,
+  grid(
+  columns: (auto),
+  rows: (auto, auto, auto),
+  gutter: 1em,
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+
+      table.header[`Landmark` Stability (mm)][X][Y][Z],
+      [mean],     [  7.579568],     [ 1.106332],     [ 1.694458],
+      [std ],     [ 10.574589],     [ 2.057231],     [ 3.608910],
+      [min ],     [  0.000109],     [ 0.000078],     [ 0.000012],
+      [25% ],     [  0.752476],     [ 0.165129],     [ 0.176408],
+      [50% ],     [  3.633556],     [ 0.468424],     [ 0.560157],
+      [75% ],     [ 10.260663],     [ 1.137847],     [ 1.569148],
+      [max ],     [112.231639],     [46.151331],     [52.179156],
+    )
+  ],
+  [
+    #table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[`WorldLandmark` Stability (mm)][X][Y][Z],
+      [mean],      [ 3.967809],     [ 1.851960],     [ 2.493500],
+      [std ],      [ 6.406780],     [ 2.779646],     [ 4.056749],
+      [min ],      [ 0.000046],     [ 0.000069],     [ 0.000042],
+      [25% ],      [ 0.377586],     [ 0.276647],     [ 0.221359],
+      [50% ],      [ 1.447640],     [ 0.808166],     [ 0.881040],
+      [75% ],      [ 4.694866],     [ 2.216550],     [ 3.038803],
+      [max ],      [87.592255],     [29.960801],     [48.716450],
+    )
+  ],
+  )
+) <world-landmarks-stability>
