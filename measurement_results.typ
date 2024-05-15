@@ -362,7 +362,7 @@ One aspect that leads to a less stable signal is jitter. Jitter is the sudden, u
   caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
   placement: none,
 )[
-  #image("measurements/maurice_drum_fast/LITE/Right Wrist: Axis.Y.svg")
+  #image("measurements/maurice_drum_fast/LITE/Right_Wrist_y.svg")
 ] <jitter-example-right-wrist>
 
 
@@ -414,11 +414,11 @@ Another aspect that can lead to a less stable signal is noise. Noise is the rand
   grid(
     columns: (auto, auto),
     rows: (auto, auto),
-[#image("measurements/maurice_drum_regular/LITE/Right Heel: Axis.Y.svg")
+[#image("measurements/maurice_drum_regular/LITE/Right_Wrist_y.svg")
 ],
-[#image("measurements/maurice_drum_regular/FULL/Right Heel: Axis.Y.svg")
+[#image("measurements/maurice_drum_regular/FULL/Right_Wrist_y.svg")
 ],
-[#image("measurements/maurice_drum_regular/HEAVY/Right Heel: Axis.Y.svg")
+[#image("measurements/maurice_drum_regular/HEAVY/Right_Wrist_y.svg")
 ]
 ),
   caption: [A noisy signal in the `maurice_drum_regular` measurement. Models: `LITE` (top left), `FULL` (top right), `HEAVY` (bottom left). Marker type: `Landmark`. Marker: `Right Heel`.],
