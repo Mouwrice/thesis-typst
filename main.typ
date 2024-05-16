@@ -40,6 +40,6 @@
 
 == Results
 
-= Drum Application
+#include "drum_application.typ"
 
-#include("figures.typ")
+#include "figures.typ"
