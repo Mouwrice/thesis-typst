@@ -32,14 +32,8 @@
 
 #include "mediapipe_pose.typ"
 
-#include "measurements.typ"
+#include "measurements/measurements.typ"
 
-= Improving accuracy and reducing jitter
-
-== Methods
-
-== Results
+#include "jitter_noise/jitter_noise.typ"
 
 #include "drum_application.typ"
-
-#include "figures.typ"

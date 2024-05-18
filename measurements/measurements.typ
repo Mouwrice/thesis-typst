@@ -1,4 +1,4 @@
-#import "lib.typ": *
+#import "../lib.typ": *
 
 = Measuring accuracy and deviation <measuring-accuracy-and-deviation>
 
@@ -8,4 +8,3 @@ All base measurements are taken from a Qualisys Oqus MRI #footnote()[The Oqus MR
 #include("measurement_methods.typ")
 
 #include("measurement_results.typ")
-

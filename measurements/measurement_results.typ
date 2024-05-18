@@ -1,4 +1,4 @@
-#import "lib.typ": *
+#import "../lib.typ": *
 
 == Results
 
@@ -25,7 +25,7 @@ Lastly, the deviation and stability values are also made available by describing
   caption: [The trajectory along the z-axis (vertical axis) of the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
 )[
-  #image("measurements/maurice_drum_regular/Left Wrist_Axis.Z_positions.svg")
+  #image("../images/measurements/maurice_drum_regular/Left Wrist_Axis.Z_positions.svg")
 ] <maurice-drum-regular-left-wrist-full-landmark>
 
 
@@ -33,14 +33,14 @@ Lastly, the deviation and stability values are also made available by describing
   caption: [Per axis deviation of the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none,
 )[
-  #image("measurements/maurice_drum_regular/Left Wrist_deviations_seperate.png")
+  #image("../images/measurements/maurice_drum_regular/Left Wrist_deviations_seperate.png")
 ] <maurice-drum-regular-left-wrist-full-landmark-deviation>
 
 #figure(
   caption: [Signal stability of the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
 )[
-  #image("measurements/maurice_drum_regular/Left Wrist_signal_stability.png")
+  #image("../images/measurements/maurice_drum_regular/Left Wrist_signal_stability.png")
 ] <maurice-drum-regular-left-wrist-full-landmark-stability>
 
 #show table.cell.where(x: 0): set text(weight: "bold")
@@ -385,7 +385,7 @@ One aspect that leads to a less stable signal is jitter. Jitter is the sudden, u
   caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
   placement: none,
 )[
-  #image("measurements/maurice_drum_fast/LITE/Right_Wrist_y.svg")
+  #image("../images/measurements/maurice_drum_fast/LITE/Right_Wrist_y.svg")
 ] <jitter-example-right-wrist>
 
 
@@ -437,11 +437,11 @@ Another aspect that can lead to a less stable signal is noise. Noise is the rand
   grid(
     columns: (auto, auto),
     rows: (auto, auto),
-[#image("measurements/maurice_drum_regular/LITE/Right_Wrist_y.svg")
+[#image("../images/measurements/maurice_drum_regular/LITE/Right_Wrist_y.svg")
 ],
-[#image("measurements/maurice_drum_regular/FULL/Right_Wrist_y.svg")
+[#image("../images/measurements/maurice_drum_regular/FULL/Right_Wrist_y.svg")
 ],
-[#image("measurements/maurice_drum_regular/HEAVY/Right_Wrist_y.svg")
+[#image("../images/measurements/maurice_drum_regular/HEAVY/Right_Wrist_y.svg")
 ]
 ),
   caption: [A noisy signal in the `maurice_drum_regular` measurement. Models: `LITE` (top left), `FULL` (top right), `HEAVY` (bottom left). Marker type: `Landmark`. Marker: `Right Heel`.],
