@@ -136,7 +136,7 @@ A final note on the memory size of the method. The above results are achieved wi
 
 === 60 fps
 
-The `maurice_drum_60fps` recording at 60 fps is used to compare the results. The following results are with parameters set to a memory size of 2 frames, the peak $d = 0.01$, and the tightness $s = 0.7$. The results are displayed in @maurice_drum_60fps_stability. Just like with the 30 fps recording, the method has a positive impact on the signal stability. However, the impact is less pronounced than with the 30 fps recording.
+The `maurice_drum_60fps` recording at 60 fps is used to compare the results. The following results are with parameters set to a memory size of 2 frames, the peak $d = 0.01$, and the tightness $s = 0.7$. The results are displayed in @maurice_drum_60fps_stability. Just like with the 30 fps recording, the method has a positive impact on the signal stability. However, the impact is less pronounced than with the 30 fps recording. This is somewhat surprising, as it was expected that the method would have a more significant impact on the 60 fps recording. More frames per second should allow the method to better predict the direction vector $arrow(v)$ and a narrower interpolation function. As the frames are closer together, the possible range of movement should be smaller.
 
 #figure(
   caption: [The signal stability from the `maurice_drum_60fps` measurement without processing (top) and with processing (bottom). Model: `LITE`, Marker type: `Landmark`],
@@ -176,7 +176,34 @@ The `maurice_drum_60fps` recording at 60 fps is used to compare the results. The
   )
 ) <maurice_drum_60fps_stability>
 
+At 60 fps it is however possible to increase the memory size without causing the markers to lag behind the actual movement. Using more frames to predict the current position leads to a more stable prediction. But even at just 4 frames it is shown that the prediction is a bit too stable. The stability shown in @maurice_drum_60fps_mem4_stability is slightly worse than with a memory size of 2 frames.
+
+#figure(
+  caption: [The signal stability from the `maurice_drum_60fps` measurement with a memory size of 4 frames with processing. Model: `LITE`, Marker type: `Landmark`],
+  placement: none,
+  table(
+      columns: (auto, 2fr, 2fr, 2fr),
+      align: (left, right, right, right),
+      table.header[Stability processed (mm)][X][Y][Z],
+      [mean],      [ 4.209328],     [ 1.327719],     [ 1.634284],
+      [std ],      [ 4.037256],     [ 3.022464],     [ 3.120164],
+      [min ],      [ 0.000018],     [ 0.000010],     [ 0.000007],
+      [25% ],      [ 1.179050],     [ 0.136544],     [ 0.149714],
+      [50% ],      [ 3.084383],     [ 0.431487],     [ 0.511141],
+      [75% ],      [ 6.089892],     [ 1.167036],     [ 1.695795],
+      [max ],      [40.776414],     [54.463532],     [53.594910],
+  )
+) <maurice_drum_60fps_mem4_stability>
+
+A possible explanation for the less pronounced impact of the method on the 60 fps recording could be attributed to the jitter. When closely looking at the jitter, we can see that the duration (in time) is the same across the 30fps and 60fps recordings. For example where the jitter would last 2 frames in the 30 fps recording, it would last 4 frames in the 60 fps recording. This means that the method has less of an impact on the 60 fps recording, as the jitter is already less pronounced. At 60 fps the jitter has a smoother curve instead of the sharp peaks at 30 fps.
+
+
+
+As with the 30 fps recording, the method does not have a negative impact on the accuracy.
+
 
 === Conclusion
 
-At 30 frames per second the method has a positive impact on the signal stability and the jitter. The method does not have a negative impact on the accuracy. The method does not improve the accuracy, but it does not worsen it either.
+At 30 frames per second the method has a positive impact on the signal stability and the jitter. The same is true for the 60 frames per second recording, but the impact is less pronounced due to the smoother, stretched out, jitter.
+
+The method does not have a negative impact on the accuracy. The method does not improve the accuracy, but it does not worsen it either.

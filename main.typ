@@ -37,3 +37,7 @@
 #include "jitter_noise/jitter_noise.typ"
 
 #include "drum_application.typ"
+
+= Future work
+
+= Conclusion
