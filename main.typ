@@ -24,11 +24,9 @@
 
 #total-words
 
-= Introduction
+#include "introduction.typ"
 
-== Body pose estimation
-
-= A brief overview of the State Of The Art
+#include "sota.typ"
 
 #include "mediapipe_pose.typ"
 
@@ -38,6 +36,6 @@
 
 #include "drum_application.typ"
 
-= Future work
+= Future work <future-work>
 
-= Conclusion
+= Conclusion <conclusion>

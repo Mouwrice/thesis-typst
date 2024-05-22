@@ -135,3 +135,70 @@ mediapipe-model-card:
   type: article
   author: Google
   title: "Model Card: MediaPipe BlazePose GHUM 3D"
+
+human-motion:
+  type: web
+  author: Vladimir Mandic
+  title: "Human: 3D Motion Visualization"
+  url:
+    value: https://github.com/vladmandic/human-motion
+
+human:
+  type: web
+  author: Vladimir Mandic
+  title: "Human: AI-powered 3D Face Detection & Rotation Tracking, Face Description & Recognition, Body Pose Tracking, 3D Hand & Finger Tracking, Iris Analysis, Age & Gender & Emotion Prediction, Gaze Tracking, Gesture Recognition"
+  url:
+    value: https://github.com/vladmandic/human
+
+volumetric-capture:
+  type: web
+  author: [Sterzentsenko, Vladimiros and Karakottas, Antonis and Papachristou, Alexandros and Zioulis, Nikolaos and Doumanoglou, Alexandros and Zarpalas, Dimitrios and Daras, Petros]
+  title: A low-cost, flexible and portable volumetric capturing system
+  page-range: 200-207
+  date: 2020
+  organization: IEEE
+  url:
+    value: https://vcl3d.github.io/VolumetricCapture/
+
+mmpose:
+  type: web
+  author: OpenMMLab
+  title: OpenMMLab Pose Estimation Toolbox and Benchmark. 
+  url:
+    value: https://github.com/open-mmlab/mmpose
+
+rtmpose:
+  type: web
+  author: [Jiang, Tao and Lu, Peng and Zhang, Li and Ma, Ningsheng and Han, Rui and Lyu, Chengqi and Li, Yining and Chen, Kai]
+  title: "RTMPose: Real-Time Multi-Person Pose Estimation based on MMPose"
+  publisher: arXiv
+  date: 2023
+  url:
+    value: https://arxiv.org/abs/2303.07399
+
+alphapose-paper:
+  type: article
+  title: "RMPE: Regional Multi-person Pose Estimation"
+  author: [Fang, Hao-Shu and Xie, Shuqin and Tai, Yu-Wing and Lu, Cewu]
+  date: 2017
+
+alphapose:
+  type: repository
+  title: Real-Time and Accurate Full-Body Multi-Person Pose Estimation & Tracking System
+  author: [Fang, Hao-Shu and Xie, Shuqin and Tai, Yu-Wing and Lu, Cewu]
+  url:
+    value: https://github.com/MVIG-SJTU/AlphaPose
+
+mindpose:
+  type: repository
+  title: MindSpore Pose Toolbox and Benchmark
+  author: MindSpore Vision Contributors
+  date: 2022
+  url:
+    value: https://github.com/mindspore-lab/mindpose
+
+object-pose-survey:
+  type: report
+  title: "Deep Learning-Based Object Pose Estimation: A Comprehensive Survey"
+  author: [Jian Liu, Wei Sun, Hui Yang, Zhiwen Zeng, Chongpei Liu, Jin Zheng, Xingyu Liu, Hossein Rahmani, Nicu Sebe, Ajmal Mian]
+  date: 2024-05-20

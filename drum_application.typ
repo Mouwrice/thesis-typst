@@ -1,6 +1,6 @@
 #import "lib.typ": *
 
-= The Air Drumming Application (DrumPy)
+= The Air Drumming Application (DrumPy) <drum-application>
 
 The Air Drumming application is a demo application that showcases the use of on-device body pose estimation.
 #footnote[

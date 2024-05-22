@@ -1,4 +1,4 @@
-= MediaPipe Pose Landmarker
+= MediaPipe Pose Landmarker <mediapipe-pose>
 
 The following section describes the MediaPipe Pose Landmarker solution @mediapipe-pose-landmarker. It first provides some context about the broader MediaPipe Framework before going into more detail on the MediaPipe Pose Landmarker solution.
 
