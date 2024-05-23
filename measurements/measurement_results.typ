@@ -497,8 +497,8 @@ Thus follows that the resolution of the input image does not significantly affec
 
 All previous results are from measurements with the `Landmark` as marker type. These are points that have coordinates in the image frame with an added depth value. MediaPipe also provides `WorldLandmarks` as a marker type. These are real-world 3D coordinates. The values are in meters and are relative to the midpoint between the hips. MediaPipe tries to predict the size of the person in the frame and uses this to scale the world landmarks. `WorldLandmarks` allows to decouple the marker locations from the image frame. With them, one can track the movements relative to the person instead of the image frame. This can be useful when the person is moving around in the frame or when the person is moving towards or away from the camera. As this adds another layer of uncertainty (the scale of the person in the frame is but a prediction), the accuracy of the `WorldLandmarks` is expected to be lower than the `Landmarks`.
 
-The deviation values for the `WorldLandmarks` are shown in @world-landmarks-deviations. The deviation values are indeed higher than the deviation values for the `Landmarks`.
-#footnote[Note that the depth values are somewhat improved with the `WorldLandmarks` marker type. This is attributed to a better scaling factor than the somewhat arbitrary scaling factor of 0.5 that was chosen in the x-axis alignment. The depth values are still as inaccurate as before, but the entire scaling of the depth axis is just a bit better. These `WorldLandmark` depth values would still converge to zero if the Golden-section search is applied.]
+The deviation values for the `WorldLandmarks` are shown in @world-landmarks-deviations. The deviation values are indeed higher than the deviation values for the `Landmarks` by a value of 2 to 5 mm.
+#footnote[Note that the depth values are somewhat improved with the `WorldLandmarks` marker type. This is attributed to a better scaling factor than the somewhat arbitrary scaling factor of 0.5 that was chosen in the x-axis alignment. The depth values are still as inaccurate as before, but the entire scaling of the depth axis is just a bit better. These `WorldLandmark` depth scale would still converge to zero if the Golden-section search is applied.]
 The same can be observed for the signal stability in @world-landmarks-stability. For the most accuracy tracking the regular `Landmarks` should be used. However, if the application requires tracking movements that are relative to the person instead of the image frame, then the `WorldLandmarks` need to be used. One might also opt for a combination of both, as MediaPipe always outputs both types of landmarks.
 
 #figure(
@@ -578,3 +578,17 @@ The same can be observed for the signal stability in @world-landmarks-stability.
   ],
   )
 ) <world-landmarks-stability>
+
+Scale
+
+
+=== Depth Issues
+
+In all the measurements it is pretty clear that something is wrong with the depth axis.
+It has a way higher deviation than the other axes and is also more unstable. It does of course make sense that the accuracy and stability differ from the other axes as the depth is inferred via the seperate GHUM model. But how bad is the depth axis actually?
+
+A trajectory of the depth from one recording is displayed in @depth-trajectory. It is obvious that the MediaPipe signal (blue) jumps all over the place. However, with some imagination, it can be seen that when there are actually peaks and valleys in the signal, the MediaPipe signal follows the general trend. This is a good sign, as it means that the signal is not completely random. The scale of them is not quite right and inconsistent though. Unfortunately we see that peaks and valleys are also present in the MediaPipe signal when none are present in the actual signal with a scale similar of that of the actual peaks and valleys. This makes it really hard to use the depth signal for any application. If the depth signal was just a bit inaccurate it could still be used to get a general idea of the depth and movement in an application, but with the current signal there is just no way to tell if something is an actual peak or valley or just a random spike in the signal.
+
+#figure(caption: [A sample of the inferred depth trajectory. Model: `LITE`, Marker Type: `Landmark`, Marker: `Left Wrist`.], placement: none)[
+  #image("../images/measurements/maurice_drum_regular/LITE/Left_Wrist_x.svg")
+] <depth-trajectory>

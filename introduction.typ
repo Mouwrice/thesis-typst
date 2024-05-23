@@ -3,20 +3,9 @@
 
 = Introduction
 
-This introductory chapter provides the necessary context for this master's dissertation. It starts by presenting the demo application that will be developed as part of this project and the motivation behind it. Next,it discusses the research questions that will be addressed and the goals to be achieved. Finally, it outlines the structure of the dissertation and provides an overview of the chapters that follow.
+This introductory chapter provides the necessary context for this master's dissertation. It starts by presenting the concept of body pose estimation and motion capture. Next is an introduction to the demo application that will be developed as part of this project and the motivation behind it. Next,it discusses the research questions that will be addressed and the goals to be achieved. Finally, it outlines the structure of the dissertation and provides an overview of the chapters that follow.
 
-
-== Demo Application
-
-The project aims to develop a demo application that uses on-device body pose estimation to enable air drumming. The application allows users to play virtual drums by moving their hands in the air, as well as use their feet to press down on virtual pedals. The goal is to provide a fun and interactive experience that showcases the capabilities and limitations of on-device body pose estimation.
-
-The main inspiration came from an older sketch performed by Rowan Atkinson as part of his Rowan Atkinson stand up tours during the years 1981 to 1986. In the clip, Rowan bumps into a what appears to be, invisible drum kit. 
-#footnote[
-  The clip is available on YouTube from the official "Rowan Atkinson Live" channel: #link("https://www.youtube.com/watch?v=A_kloG2Z7tU")[https://www.youtube.com/watch?v=A_kloG2Z7tU #link-icon]
-]
-There are no actual attributes on stage, the only thing standing on the stage is a drum stool. Various drum sounds can be heard which seem to perfectly match the movements performed by Rowan Atkinson. After the character played by Rowan Atkinson understands that he has stumbled upon an invisible drum kit, he starts playing the drums with his hands and feet. What follows is a neat trick of coordination and timing, as the sounds that we are hearing are obviously either prerecorded or performed by someone off-stage. The demo application aims to capture some of that magic by allowing users to actually play drums without the need for physical drumsticks or a drum kit.
-
-The demo application will be developed using the MediaPipe framework, which provides a sufficiently accurate  implementation of body pose estimation. The application will leverage the body pose estimation provided by MediaPipe to track the user's body movements in real-time. It will then use this information to generate drum sounds based on the user's hand and foot movements. The application will also include a graphical user interface that provides visual feedback to the user.
+Note that this master's dissertation is not a pure computer vision or machine learning research project. It is a project that aims to uncover some practical issues when using body pose estimation for interactive applications and finding ways to mitigate these issues. The project is a combination of research and development, with a focus on the practical aspects of using body pose estimation for interactive applications.
 
 == On-device body pose estimation
 
@@ -26,11 +15,26 @@ On-device body pose estimation refers to the ability to perform body pose estima
 
 == Traditional motion capture systems
 
-Traditional motion capture systems are used to track the movements of actors or performers in real-time. These systems typically consist of multiple cameras that capture the movements of reflective markers placed on the actor's body. The captured data is then processed to reconstruct the actor's movements in 3D space. Motion capture systems are widely used in the entertainment industry for creating realistic animations for movies, video games, and virtual reality experiences.
+Traditional motion capture systems are used to track the movements of actors or performers either in real-time or offline. These systems typically consist of multiple cameras that capture the movements of reflective markers placed on the actor's body. The captured data is then processed to reconstruct the actor's movements in 3D space. Motion capture systems are widely used in the entertainment industry for creating realistic animations for movies, video games, and virtual reality experiences.
 
 == Motivation
 
 Currently traditional motion capture systems are still the most accurate and reliable way to capture human movements. However, they are expensive, require specialized equipment and expertise to set up and operate. On the other hand, on-device body pose estimation offers a more accessible and affordable alternative that can run in real-time on consumer devices. By developing a demo application that uses on-device body pose estimation for air drumming, we can explore the capabilities and limitations of this technology and its potential for interactive applications. This can help inform future research and development efforts in the field of computer vision and human-computer interaction as well as inspire new applications and use cases.
+
+
+== Demo Application
+
+The project aims to develop a demo application that uses on-device body pose estimation to enable air drumming. The application allows users to play virtual drums by moving their hands in the air, as well as use their feet to press down on virtual pedals. The goal is to provide a fun and interactive experience that showcases the capabilities and limitations of on-device body pose estimation.
+
+The main inspiration came from an older sketch performed by Rowan Atkinson as part of his Rowan Atkinson stand up tours during the years 1981 to 1986. In the clip, Rowan bumps into, what appears to be, an invisible drum kit. 
+#footnote[
+  The clip is available on YouTube from the official "Rowan Atkinson Live" channel: #link("https://www.youtube.com/watch?v=A_kloG2Z7tU")[https://www.youtube.com/watch?v=A_kloG2Z7tU #link-icon]
+]
+There are no actual attributes on stage, the only thing standing on the stage is a drum stool. Various drum sounds can be heard which seem to perfectly match the movements performed by Rowan Atkinson. After the character played by Rowan Atkinson understands that he has stumbled upon an invisible drum kit, he starts playing the drums with his hands and feet. What follows is a neat trick of coordination and timing, as the sounds that we are hearing are obviously either prerecorded or performed by someone off-stage. The demo application aims to capture some of that magic by allowing users to actually play drums without the need for physical drumsticks or a drum kit.
+
+The demo application will be developed using the MediaPipe framework, which provides a sufficiently accurate  implementation of body pose estimation. The application will leverage the body pose estimation provided by MediaPipe to track the user's body movements in real-time. It will then use this information to generate drum sounds based on the user's hand and foot movements. The application will also include a graphical user interface that provides visual feedback to the user.
+
+
 
 == Goals and research questions
 
