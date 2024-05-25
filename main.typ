@@ -36,6 +36,6 @@
 
 #include "drum_application.typ"
 
-= Future work <future-work>
+#include "future_work.typ"
 
-= Conclusion <conclusion>
+#include "conclusion.typ"

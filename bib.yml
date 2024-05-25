@@ -202,3 +202,12 @@ object-pose-survey:
   title: "Deep Learning-Based Object Pose Estimation: A Comprehensive Survey"
   author: [Jian Liu, Wei Sun, Hui Yang, Zhiwen Zeng, Chongpei Liu, Jin Zheng, Xingyu Liu, Hossein Rahmani, Nicu Sebe, Ajmal Mian]
   date: 2024-05-20
+
+kalman-filter:
+  type: web
+  title: "Kalman Filter"
+  author: Wikipedia Contributors
+  organization: Wikipedia
+  url:
+    value: https://en.wikipedia.org/wiki/Kalman_filter
+    date: 2024-05-20

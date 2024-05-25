@@ -579,7 +579,7 @@ The same can be observed for the signal stability in @world-landmarks-stability.
   )
 ) <world-landmarks-stability>
 
-Scale
+Apart from the decrease in accuracy, there is also the scale that needs to be considered. The scale of the `WorldLandmarks` is not the same as the scale of the `Landmarks`. The `Landmarks` are in pixels, while the `WorldLandmarks` are in meters. This means that the scale of the `WorldLandmarks` is dependent on the size of the person in the frame. This scale is not always accurate, as it is a prediction. That the scale is not quite accurate is easily proved by applying our alignment method. The Golden-section search returns a scale factor for these `WorldLandmarks` so they would properly align. Two measurements have been compared, with the same camera setup but with two people of different size. The recording of the person with a height of 170cm resulted in the scaling factor of 0.9. This indicates that the person is smaller than the predicted size by MediaPipe. The other recording features a person of 184cm, which resulted in a scaling factor of 1.1. This indicates that the person is larger than the predicted size by MediaPipe. This is a clear indication that the scale of the `WorldLandmarks` is not always accurate and some alignment is needed to get the proper scale.
 
 
 === Depth Issues
