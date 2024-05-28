@@ -176,7 +176,7 @@ The `maurice_drum_60fps` recording at 60 fps is used to compare the results. The
   )
 ) <maurice_drum_60fps_stability>
 
-At 60 fps it is however possible to increase the memory size without causing the markers to lag behind the actual movement. Using more frames to predict the current position leads to a more stable prediction. But even at just 4 frames it is shown that the prediction is a bit too stable. The stability shown in @maurice_drum_60fps_mem4_stability is slightly worse than with a memory size of 2 frames.
+At 60 fps it is however possible to increase the memory size without causing the markers to lag behind the actual movement. Using more frames to predict the current position leads to a more stable prediction. But even at just 4 frames it is shown that the prediction is a bit too stable causing it to lag behind the actual positions. The stability shown in @maurice_drum_60fps_mem4_stability is slightly worse than with a memory size of 2 frames.
 
 #figure(
   caption: [The signal stability from the `maurice_drum_60fps` measurement with a memory size of 4 frames with processing. Model: `LITE`, Marker type: `Landmark`],
@@ -195,7 +195,7 @@ At 60 fps it is however possible to increase the memory size without causing the
   )
 ) <maurice_drum_60fps_mem4_stability>
 
-A possible explanation for the less pronounced impact of the method on the 60 fps recording could be attributed to the jitter. When closely looking at the jitter, we can see that the duration (in time) is the same across the 30fps and 60fps recordings. For example where the jitter would last 2 frames in the 30 fps recording, it would last 4 frames in the 60 fps recording. This means that the method has less of an impact on the 60 fps recording, as the jitter is already less pronounced. At 60 fps the jitter has a smoother curve instead of the sharp peaks at 30 fps.
+A possible explanation for the less pronounced impact of the method on the 60 fps recording could be attributed to the jitter. When closely looking at the jitter, we can see that the duration (in time) is the same across the 30fps and 60fps recordings. For example where the jitter would last 2 frames in the 30 fps recording, it would last 4 frames in the 60 fps recording. At 60fps the jitter also has a smoother trajectory, having more frames to ramp up instead of a spike. This means that the method has less of an impact on the 60 fps recording, as the jitter is already less pronounced. At 60 fps the jitter has a smoother curve instead of the sharp peaks at 30 fps.
 
 
 

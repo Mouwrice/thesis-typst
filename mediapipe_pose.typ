@@ -2,14 +2,12 @@
 
 = MediaPipe Pose Landmarker <mediapipe-pose>
 
-The following section describes the MediaPipe Pose Landmarker solution @mediapipe-pose-landmarker. It first provides some context about the broader MediaPipe Framework before going into more detail on the MediaPipe Pose Landmarker solution. The features of the solutoin are discussed as well as the motivation behind the choice of this solution for the air drumming application. The inference models used in the solution are also briefly discussed, including BlazePose and GHUM.
+The following section describes the MediaPipe Pose Landmarker solution @mediapipe-pose-landmarker. It first provides some context about the broader MediaPipe Framework before going into more detail on the MediaPipe Pose Landmarker solution. The features of the solution are discussed, as well as the motivation behind the choice of this solution for the air drumming application. The inference models used in the solution are also briefly discussed, including BlazePose and GHUM.
 
 MediaPipe is a collection of on-device machine learning tools and solutions by Google @mediapipe. It consists of two main categories. There are the MediaPipe solutions, which have predefined "Tasks" that are ready to be used in your application @mediapipe-solutions. There are tasks on vision such as the detection and categorisation of objects or the detection of hand gestures @mediapipe-gesture-recognition @mediapipe-object-detection. One of these vision solutions is the MediaPipe Pose Landmarker. Other solutions such as text classification and audio classification are also present @mediapipe-text-classification @mediapipe-audio-classification. On the other hand, exists the MediaPipe Framework. It is the low-level component used to build efficient on-device machine learning pipelines, similar to the premade MediaPipe Solutions @mediapipe-framework. The remainder of this thesis solely addresses the MediaPipe Pose Landmarker Solution from this point forward, and will frequently be referred to as simply "MediaPipe" or "MediaPipe Pose" for the sake of conciseness.
 
-MediaPipe Pose is available on three different platforms. One can use it in Python, on Android and on the web. However, these are only just API's to interact with the actual detection task. The application presented in this thesis is completely written in Python but all the concepts that are discussed are applicable to any platform.
-#footnote[
-  Following the announcement at Google I/O 2024, MediaPipe is now part of the larger Google AI Edge collection of tools and solutions. #link("https://ai.google.dev/edge")[https://ai.google.dev/edge #link-icon]
-]
+MediaPipe Pose is available on three different platforms. One can use it in Python, on Android and on the web. However, these are only just API's to interact with the actual detection task. The application presented in this thesis is completely written in Python, but all the concepts that are discussed are applicable to any platform.
+
 
 == Features
 

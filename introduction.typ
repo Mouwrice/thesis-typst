@@ -3,9 +3,10 @@
 
 = Introduction
 
-This introductory chapter provides the necessary context for this master's dissertation. It starts by presenting the concept of body pose estimation and motion capture. Next is an introduction to the demo application that will be developed as part of this project and the motivation behind it. Next,it discusses the research questions that will be addressed and the goals to be achieved. Finally, it outlines the structure of the dissertation and provides an overview of the chapters that follow.
+This introductory chapter provides the necessary context for this master's dissertation. It starts by presenting the concept of body pose estimation and motion capture. Next is an introduction to the demo application that will be developed as part of this project and the motivation behind it. Next, it discusses the research questions that will be addressed and the goals to be achieved. Finally, it outlines the structure of the dissertation and provides an overview of the chapters that follow.
 
-Note that this master's dissertation is not a pure computer vision or machine learning research project. It is a project that aims to uncover some practical issues when using body pose estimation for interactive applications and finding ways to mitigate these issues. The project is a combination of research and development, with a focus on the practical aspects of using body pose estimation for interactive applications.
+Note that this master's dissertation is not a pure computer vision or machine learning research project. It is a project that aims to uncover some practical issues when using body pose estimation for interactive applications and find ways to mitigate these issues. The project is a combination of research and development, with a focus on the practical aspects of using body pose estimation for interactive applications.
+It evaluates the MediaPipe Pose model, which is a body pose estimation model provided by the MediaPipe framework. The evaluation is done by measuring the accuracy and deviation of the model under different conditions, achieving an average accuracy of 5-10 mm. The measurements also reveal some limitations of the model, such as jitter and noise in the output. To mitigate these issues, a method is proposed based on predicting the output of the model. The method is evaluated and shown to reduce jitter and noise in the output. Finally, a demo application was developed that uses the MediaPipe Pose model for air drumming. The application allows users to play virtual drums by moving their hands and feet in the air. The application is evaluated in terms of user experience and performance, and some insights are provided for future work.
 
 == On-device body pose estimation
 
@@ -54,7 +55,7 @@ Following this introduction, the dissertation is structured as follows:
 
 - @jitter-noise[Chapter] discusses the issues of jitter and noise in the body pose estimation output and proposes a method to reduce these issues.
 
-- @drum-application[Chapter] describes the development of the demo application for air drumming, including the design and implementation of the application.
+- @drum-application[Chapter] describes the development of the demo application for air drumming, including the design and implementation of the application as well as some insights into user experience and performance. The capter also includes a comparison between body pose estimation and traditional motion capture systems for interactive applications.
 
 - @future-work[Chapter] provides some insights into future work that could be done to improve the demo application and address the limitations of on-device body pose estimation.
 

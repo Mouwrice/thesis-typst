@@ -12,14 +12,14 @@ Since there is too much data to be included in this thesis text, all measurement
 
 === Results Example
 
-To further clarify the results in the coming sections, consider the following example. It is a measurement of an air drumming recording which has been tracked by both Qualisys and MediaPipe. The MediaPipe `FULL` model has been used, together with the regular `Landmark` marker type.
+To further clarify the results in the coming sections and the way they are presented, consider the following example. It is a measurement of an air drumming recording which has been tracked by both Qualisys and MediaPipe. The MediaPipe `FULL` model has been used, together with the regular `Landmark` marker type.
 #footnote[The complete results of the example here are from the following measurement: #link("https://github.com/Mouwrice/DrumPyAnalysis/tree/main/data/measurements/maurice_drum_regular/FULL")[https://github.com/Mouwrice/DrumPyAnalysis/tree/main/data/measurements/maurice_drum_regular/FULL #link-icon]]
 
 The trajectory of the left wrist marker can be plotted, e.g. the trajectory along the z-axis (vertical axis) in @maurice-drum-regular-left-wrist-full-landmark.
 
-The deviations are plotted in a box plot (@maurice-drum-regular-left-wrist-full-landmark-deviation), as well as the stability of the signal (@maurice-drum-regular-left-wrist-full-landmark-stability).
+The deviations can be plotted in a box plot (@maurice-drum-regular-left-wrist-full-landmark-deviation), as well as the stability of the signal (@maurice-drum-regular-left-wrist-full-landmark-stability).
 
-Lastly, the deviation and stability values are also made available by describing them in a tabular format as shown in @drum-regular-dev-table and @drum-regular-sta-table.
+Lastly, the deviation and stability values are also made available by describing them in a tabular format as shown in @drum-regular-dev-table and @drum-regular-sta-table, respectively. The tables are split up per axis and show the mean, standard deviation, min, max, and some percentiles of the deviation and stability values.
 
 #figure(
   caption: [The trajectory along the z-axis (vertical axis) of the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
@@ -86,17 +86,17 @@ Lastly, the deviation and stability values are also made available by describing
 
 === Effect of the models
 
-MediaPipe has three different models available, each with a different size. The larger the model, the more accurate it results should be since the inference model has a larger network that does the inference. Using a larger model negatively impacts the real-time performance, of course. Comparing these different models, we found that the average accuracy does not drastically increase given a large model. The achievable frame rate, however, can drop significantly given these large models, dependent on the hardware used.
+MediaPipe has three different models available, each with a different size. The larger the model, the more accurate it results should be, since the inference model has a larger network that does the inference. Using a larger model negatively impacts the real-time performance, of course. Comparing these different models, we found that the average accuracy does not drastically increase given a large model. The achievable frame rate, however, can drop significantly given these large models, dependent on the hardware used.
 
-For each model, 3 results are provided, each result being from one specific recording. The recordings are all drumming motions but with increasing levels of intensity. The first recording is of small movements (`maurice_drum_small`). The second one features normal movements (`maurice_drum_regular`) and the last one contains fast and big movements (`maurice_drum_fast`). The accuracy is taken from a total of 10 tracked markers, being the `Left Elbow`, `Right Elbow`, `Left Wrist`, `Right Wrist`, `Left Hip`, `Right Hip`, `Left Heel`, `Right Heel`, `Left Foot Index`, `Right Foot Index`.
+For each model, 3 results are provided, each result being from one specific recording. The recordings are all drumming motions, but with increasing levels of intensity. The first recording is of small movements (`maurice_drum_small`). The second one features normal movements (`maurice_drum_regular`) and the last one contains fast and big movements (`maurice_drum_fast`). The accuracy is taken from a total of 10 tracked markers, being the `Left Elbow`, `Right Elbow`, `Left Wrist`, `Right Wrist`, `Left Hip`, `Right Hip`, `Left Heel`, `Right Heel`, `Left Foot Index`, `Right Foot Index`.
 
 ==== LITE
 
 The `LITE` model is 3 MB in size and is the smallest model available.
 
-The total deviation of all three recordings are displayed in @mau-drum-small-lite-total, @mau-drum-regular-lite-total, and @mau-drum-fast-lite-total, respectively. We can immediately draw some conclusions from these results. The Y and Z axis (horizontal and vertical) have a relatively good accuracy compared to the x-axis (depth). The depth is actually very imprecise and unstable, having a high mean deviation and a high standard deviation makes this depth not very usable. It also indicates that the wider the range of movements and the speed at which they are performed results in a slight drop in accuracy. Almost all deviation values are slightly higher than their corresponding values from a recording featuring less and slower movement.
+The total deviation of all three recordings are displayed in @mau-drum-small-lite-total, @mau-drum-regular-lite-total, and @mau-drum-fast-lite-total, respectively. We can immediately draw some conclusions from these results. The Y and Z axis (horizontal and vertical) have a relatively good accuracy compared to the X axis (depth). The depth is actually very imprecise and unstable, having a high mean deviation and a high standard deviation makes this depth not very usable. The accuracy of measurements containing fast, and large movements is lower than for smaller and slower movements. This indicates that the wider the range of movements and the speed at which they are performed results in a slight drop in accuracy. Almost all deviation values are slightly higher than their corresponding values from a recording featuring less and slower movement.
 
-Despite the x-axis being very imprecise, the Y and Z axis consistently achieve an accuracy of minimum 1 centimetre. For an air drumming application, this level of accuracy is already pretty usable.
+Despite the X axis being very imprecise, the Y and Z axis consistently achieve an accuracy of minimum 1 centimetre. For an air drumming application, this level of accuracy is already pretty usable.
 
 #show table.cell.where(x: 0): set text(weight: "bold")
 
@@ -218,7 +218,7 @@ The `FULL` models is double the size of the `LITE` model, at 6 MB. But that does
 
 ==== HEAVY
 
-The `HEAVY` model is the largest of them all at a size of 26 MB. At this level, we have clearly reached a point of diminishing returns. Despite increasing the model size by a factor of 4, the improvements are not a big jump up. The jump in accuracy from `FULL` to `HEAVY` is similar to the jump from `LIGHT` to `FULL`, again increasing the accuracy by 1 mm. The x-axis also gets an increase in accuracy but proves to still be too unstable and imprecise to be of any use. At this point, the axis lateral to the image frames (Y and Z) are considerably accurate, reaching an average accuracy of 5 and 7 mm respectively. Just as with the smaller models, larger movements lead to a slight drop in accuracy, there is especially an increase in outliers.
+The `HEAVY` model is the largest of them all at a size of 26 MB. At this level, we have clearly reached a point of diminishing returns. Despite increasing the model size by a factor of 4, the improvements are not a big jump up. The jump in accuracy from `FULL` to `HEAVY` is similar to the jump from `LIGHT` to `FULL`, again increasing the accuracy by 1 mm. The X axis also gets an increase in accuracy but proves to still be too unstable and imprecise to be of any use. At this point, the axis lateral to the image frames (Y and Z) are considerably accurate, reaching an average accuracy of 5 and 7 mm respectively. Just as with the smaller models, larger movements lead to a slight drop in accuracy, there is especially an increase in outliers.
 
 #figure(
   caption: [The total deviation from the `maurice_drum_small` measurement. Model: `HEAVY`, Marker type: `Landmark`.],
@@ -282,13 +282,13 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
 
 
 #figure(
-  caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
+  caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `LITE`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
 )[
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability (mm)][X][Y][Z],
+    table.header[Stability `LITE` (mm)][X][Y][Z],
     [mean],     [  7.764771],    [  1.352941],    [  2.096501],
     [std ],     [ 10.085330],    [  2.809363],    [  4.220660],
     [min ],     [  0.000014],    [  0.000023],    [  0.000073],
@@ -306,7 +306,7 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability (mm)][X][Y][Z],
+    table.header[Stability `FULL` (mm)][X][Y][Z],
     [mean],     [  7.579568],     [ 1.106332],     [ 1.694458],
     [std ],     [ 10.574589],     [ 2.057231],     [ 3.608910],
     [min ],     [  0.000109],     [ 0.000078],     [ 0.000012],
@@ -318,13 +318,13 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
 ] <drum-regular-full-sta-table>
 
 #figure(
-  caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `FULL`, Marker type: `Landmark`, Marker: `Left Wrist`.],
+  caption: [The signal stability from the `maurice_drum_regular` measurement. Model: `HEAVY`, Marker type: `Landmark`, Marker: `Left Wrist`.],
   placement: none
 )[
   #table(
     columns: (auto, 2fr, 2fr, 2fr),
     align: (left, right, right, right),
-    table.header[Stability (mm)][X][Y][Z],
+    table.header[Stability `HEAVY` (mm)][X][Y][Z],
     [mean],     [  6.122471],     [ 0.979171],     [ 1.511921],
     [std ],     [  8.788107],     [ 1.873792],     [ 3.426255],
     [min ],     [  0.000077],     [ 0.000090],     [ 0.000053],
@@ -343,18 +343,18 @@ Having a more stable signal, meaning less outliers and a more consistent deviati
 Now that we have compared the accuracy of all three models, we have a clear view of the expected accuracy.
 For any lateral movement, that is movement lateral to the image frame, the horizontal and vertical axis, an accuracy of 5-10 mm can be achieved with some deviations from that accuracy of at most 1 centimetre. There is however also the possibility for some jitter to occur in the resulting signal which can some major deviations from the actual movement, but these are only of short duration.
 
-The depth axis, the x-axis, is considerably less accurate. The accuracy is around 40-60 mm with some deviations of up to 100 mm. The depth is as mentioned _"obtained via the GHUM model fitted to 2D point porjections."_ Unfortunately, this depth is not very usable for an air drumming application. The depth is also very unstable, with a high standard deviation and a high number of outliers. This is especially the case when the movements are fast and big.
+The depth axis, the X axis, is considerably less accurate. The accuracy is around 40-60 mm, with some deviations of up to 100 mm. The depth is as mentioned _"obtained via the GHUM model fitted to 2D point projections."_ Unfortunately, this depth is not very usable for an air drumming application. The depth is also very unstable, with a high standard deviation and a high number of outliers. This is especially the case when the movements are fast and large.
 
 Comparing the models, there is little accuracy to be gained from choosing a larger model. However, larger models provide a more stable signal, which can be essential as the drumming application mostly looks at the relative movements instead of absolute values.  As we are developing an application to be used live, the largest model that can achieve real-time inference is preferred. The inference time is of course dependent on the hardware, which means that in some cases the `HEAVY` model can be used but in other cases the `LITE` model is the only one that can be properly run in real-time, @inference-time.
 
 
 === Achievable framerate <inference-time>
 
-The frame rate that can be achieved should be high enough for a proper real-time application. The higher the frame rate, the more responsive the application will feel and the more accurate the tracking can be. A higher frame rate also allows for faster motions to be captured, which is handy in the case of fast drumming motions. The frame rate is dependent on the hardware used, but also on the model that is used. The larger the model, the more computationally expensive it is to run the inference. The following table (@framerate-table) lists the maximum frame rate that can be achieved for each model, as well as the device that was used to run the inference.
+The frame rate that can be achieved should be high enough for a proper real-time application. The higher the frame rate, the more responsive the application will feel and the more accurate the tracking can be. A higher frame rate also allows for faster motions to be captured, which is handy in the case of fast drumming motions. The frame rate is dependent on the hardware used, but also on the model that is used. The larger the model, the more computationally expensive it is to run the inference. The following table (@framerate-table) lists the maximum frame rate that was achieved for each model, as well as the device that was used to run the inference.
 
 
 #figure(
-  caption: [The maximum framerate (fps) that can be achieved for each model with different devices.],
+  caption: [The maximum frame rate (fps) that can be achieved for each model with different devices.],
   placement: none
 )[
   #table(
@@ -377,9 +377,10 @@ The conclusion is that the `FULL` model is the best model to use for real-time a
 If the device is not powerful enough to run the `FULL` model in real-time, the `LITE` model can be used as a fallback.
 
 
+
 === Jitter
 
-One aspect that leads to a less stable signal is jitter. Jitter is the sudden, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings but is a factor that can lead to a less stable signal. Jitter occurs less frequently in the larger models, which partly explains the increased signal stability using these models. When developing an application that relies on the stability of the signal, it is important to acknowledge that jitter can occur and that it can lead to a less stable signal.
+One aspect that leads to a less stable signal is jitter. Jitter is the sudden, unintended variation in the position of a tracked marker. In the recordings, we see that this jitter mostly occurs when the tracked body part is either fast-moving or occluded in any way. This is mostly present when crossing arms in our recordings. As shown in @jitter-example-right-wrist, the jitter is clearly visible around the 20-second mark. This jitter is not present in all recordings, but is a factor that can lead to a less stable signal. Jitter occurs less frequently in the larger models, which partly explains the increased signal stability using these models. When developing an application that relies on the stability of the signal, it is important to acknowledge that jitter can occur and that it can lead to a less stable signal.
 
 #figure(
   caption: [A case of jitter in the `maurice_drum_fast` measurement around the 20 seconds mark. Model: `LITE`, Marker type: `Landmark`, Marker: `Right Wrist`.],
@@ -498,8 +499,8 @@ Thus follows that the resolution of the input image does not significantly affec
 All previous results are from measurements with the `Landmark` as marker type. These are points that have coordinates in the image frame with an added depth value. MediaPipe also provides `WorldLandmarks` as a marker type. These are real-world 3D coordinates. The values are in meters and are relative to the midpoint between the hips. MediaPipe tries to predict the size of the person in the frame and uses this to scale the world landmarks. `WorldLandmarks` allows to decouple the marker locations from the image frame. With them, one can track the movements relative to the person instead of the image frame. This can be useful when the person is moving around in the frame or when the person is moving towards or away from the camera. As this adds another layer of uncertainty (the scale of the person in the frame is but a prediction), the accuracy of the `WorldLandmarks` is expected to be lower than the `Landmarks`.
 
 The deviation values for the `WorldLandmarks` are shown in @world-landmarks-deviations. The deviation values are indeed higher than the deviation values for the `Landmarks` by a value of 2 to 5 mm.
-#footnote[Note that the depth values are somewhat improved with the `WorldLandmarks` marker type. This is attributed to a better scaling factor than the somewhat arbitrary scaling factor of 0.5 that was chosen in the x-axis alignment. The depth values are still as inaccurate as before, but the entire scaling of the depth axis is just a bit better. These `WorldLandmark` depth scale would still converge to zero if the Golden-section search is applied.]
-The same can be observed for the signal stability in @world-landmarks-stability. For the most accuracy tracking the regular `Landmarks` should be used. However, if the application requires tracking movements that are relative to the person instead of the image frame, then the `WorldLandmarks` need to be used. One might also opt for a combination of both, as MediaPipe always outputs both types of landmarks.
+#footnote[Note that the depth values are somewhat improved with the `WorldLandmarks` marker type. This is attributed to a better scaling factor than the somewhat arbitrary scaling factor of 0.5 that was chosen in the X axis alignment. The depth values are still as inaccurate as before, but the entire scaling of the depth axis is just a bit better. The `WorldLandmark` depth axis scale would still converge to zero if the Golden-section search method is applied.]
+The same can be observed for the signal stability in @world-landmarks-stability. For the most accuracy, the regular `Landmarks` should be used. However, if the application requires tracking movements that are relative to the person instead of the image frame, then the `WorldLandmarks` need to be used. One might also opt for a combination of both, as MediaPipe always outputs both types of landmarks.
 
 #figure(
   caption: [The accuracy of `WorldLandmarks` compared to the accuracy of `Landmarks`. Model: `FULL`. Measurement: `maurice_drum_regular`.],
@@ -579,7 +580,7 @@ The same can be observed for the signal stability in @world-landmarks-stability.
   )
 ) <world-landmarks-stability>
 
-Apart from the decrease in accuracy, there is also the scale that needs to be considered. The scale of the `WorldLandmarks` is not the same as the scale of the `Landmarks`. The `Landmarks` are in pixels, while the `WorldLandmarks` are in meters. This means that the scale of the `WorldLandmarks` is dependent on the size of the person in the frame. This scale is not always accurate, as it is a prediction. That the scale is not quite accurate is easily proved by applying our alignment method. The Golden-section search returns a scale factor for these `WorldLandmarks` so they would properly align. Two measurements have been compared, with the same camera setup but with two people of different size. The recording of the person with a height of 170cm resulted in the scaling factor of 0.9. This indicates that the person is smaller than the predicted size by MediaPipe. The other recording features a person of 184cm, which resulted in a scaling factor of 1.1. This indicates that the person is larger than the predicted size by MediaPipe. This is a clear indication that the scale of the `WorldLandmarks` is not always accurate and some alignment is needed to get the proper scale.
+Apart from the decrease in accuracy, there is also the scale that needs to be considered. The scale of the `WorldLandmarks` is not the same as the scale of the `Landmarks`. The `Landmarks` are in pixels, while the `WorldLandmarks` are in meters. This means that the scale of the `WorldLandmarks` is dependent on the size of the person in the frame. This scale is not always accurate, as it is a prediction. That the scale is not quite accurate is easily proved by applying our alignment method. The Golden-section search returns a scale factor for these `WorldLandmarks` so they would properly align. Two measurements have been compared, with the same camera setup but with two people of different size at the same distance from the camera. The recording of the person with a height of 170cm resulted in the scaling factor of 0.9. This indicates that the person is smaller than the predicted size by MediaPipe. The other recording features a person of 184cm, which resulted in a scaling factor of 1.1. This indicates that the person is larger than the predicted size by MediaPipe. This is a clear indication that the scale of the `WorldLandmarks` is not always accurate and some alignment is needed to get the proper scale. This can also be seen as a advantage, that different people can be tracked with the same model without the need to adjust the model to the person's size.
 
 
 === Depth Issues

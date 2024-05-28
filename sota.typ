@@ -6,7 +6,7 @@ In this section, we will provide a brief overview of some recent body pose estim
 
 Some rather strict requirements for this specific demo application were set at the beginning of the project. 
 The tool should be able to run on-device in real-time, and should be able to provide 3D pose estimation.
-By on-device, we mean that the tool should be able to run on consumer-grade hardware, such as a smartphone or a laptop. Another important requirement is the amount of detail that can be tracked. For a drumming demo application, it is essential that the hands and feet are properly detected and tracked. In many of the papers that we will discuss in this section, the tools often lack one of these requirements.
+By on-device, we mean that the tool should be able to run on consumer-grade hardware, such as a smartphone or a laptop. Another important requirement is the amount of detail that can be tracked. For a drumming demo application, it is essential that the hands and feet are properly detected and tracked. In many of the papers that we will discuss in this section, the tools often lack one of these requirements. Out of the tools that we will discuss, only RTMPose and OpenPose meet all the requirements except for the 3D pose estimation. Only MediaPipe Pose was able to meet all the requirements.
 
 == Human Motion
 

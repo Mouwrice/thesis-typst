@@ -92,7 +92,7 @@ For each point in the dominant time series, walk over the points of the other se
 
 With this method, we have that the irrelevant points are no longer included in the measurements. Yet this does not mean that the points that are now taken into account are perfectly aligned with one another. However, due to the high frequency of the Qualisys captures, we note that the time difference will be relatively small, and thus the difference induced by this nonalignment will be quite small. For a Qualisys capture with a frame rate of 120Hz, there is a frame every $(1000 "ms") / (120 "Hz") = 8.33... $ milliseconds. In the worst case, the MediaPipe point lies exactly between two Qualisys frames, resulting in a maximum time difference of only 4.166... milliseconds.
 
-=== Metrics
+=== Metrics <metrics>
 
 Two simple metrics can now be computed having found a way to get point pairs.
 A first one is the average offset of one signal to another. By simply taking the average difference of each point pair. A second and very similar metric is the average deviation. It denotes how much a signal deviates from another one. Instead of taking the regular difference of a point pair, the absolute difference is taken. This is an important distinction. The average offset is simply a metric that tells us how far a signal is from another. The average deviation, however, can be interpreted as the accuracy with which a signal approximates another signal. So when the Qualisys signal is seen as the base truth and the MediaPipe signal is seen as an approximation of that base truth, we have an accuracy measure for the MediaPipe signal!
@@ -109,7 +109,16 @@ The MediaPipe Landmarks, on the other hand, do not actually correspond with a po
 MediaPipe also has a different kind of Landmarks (`Landmark`), namely the World Landmarks (`WorldLandmark`). These try to map the regular Landmarks, which are a point in the video frame, to a point in space. With the center of the hips taken as origin. The axis remain the same but are scaled so that the `WorldLandmarks` are in line with the actual size of movement in the space.
 
 This section gives a complete overview on how the MediaPipe signal has been aligned to match the Qualisys signal and provide a proper measurement on accuracy.
-The entire section uses a measurement of the vertical position of the left wrist marker, taken from MediaPipe using regular `Landmarks` and the `FULL` model.
+The entire section uses a measurement of the vertical position of the left wrist marker, taken from MediaPipe using regular `Landmarks` and the `FULL` model. A high level overview of all the alignment steps are shown in @alignment-chart.
+
+#figure(
+  caption: [The entire alignment process of the MediaPipe signal to the Qualisys signal.],
+  placement: none)[
+  #image(width: 100%, "../images/alignment_chart.svg")
+] <alignment-chart>
+
+
+==== Axis Rearrangement
 
 The output from the recordings are time series that can be plotted. The output from the measurements is read and without any processing plotted to a line plot in @left_wrist_axis_z_positions_base. On the horizontal axis is time in seconds. On the vertical axis is the value of the point in time in millimeter. @left_wrist_axis_z_positions_base shows a clear mismatch in axis. Plotted is the z-axis from both capture systems. But as mentioned, in MediaPipe the z-axis is the depth and not the vertical axis. 
 
@@ -131,30 +140,34 @@ Secondly, all MediaPipe values have been multiplied by 1000. As the Qualisys out
   #image(width: 100%, "../images/left_wrist_axis_z_positions_apply_axis_transformations.svg")
 ] <left_wrist_axis_z_positions_apply_axis_transformations>
 
-Now that the basics are out of the way we can start aligning the signal. A first step is removing the average offset the MediaPipe signal has to the Qualisys signal. The method of walking over the dominant series (MediaPipe in this case) and gathering pairs of points from both series as discussed in the previous section, @comparing-time-series, is used for this. For every pair of points we can simply take the difference between those points. The average of these differences is then the offset of the MediaPipe signal. The result of removing this offset from the MediaPipe signal is displayed in @left_wrist_axis_z_positions_remove_offset.
+
+==== Removing Average Offset and Time Offset
+
+Now that the basics are out of the way, we can start aligning the signal. A first step is removing the average offset from the MediaPipe signal to the Qualisys signal. The method of walking over the dominant series (MediaPipe in this case) and gathering pairs of points from both series as discussed in the previous section, @comparing-time-series, is used for this. For every pair of points, we can simply take the difference between those points. The average of these differences is then the offset of the MediaPipe signal. The result of removing this offset from the MediaPipe signal is displayed in @left_wrist_axis_z_positions_remove_offset.
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis with the average offset removed.])[
   #image(width: 100%, "../images/left_wrist_axis_z_positions_remove_offset.svg")
 ] <left_wrist_axis_z_positions_remove_offset>
 
-With the two signals close together another problem becomes apparent. They are offset in time. This makes sense as both measurements cannot easily be started at exactly the same time. We need to introduce a starting offset. This starting offset should minimize the deviation between both signals. This is achieved by iteratively increasing a starting offset and capturing the offset that resulted in the least deviation. In @left_wrist_axis_z_positions_frame_offset it is shown that this method finds the most perfect offset. Both signals are perfectly aligned in time. After this offset operation the average vertical offset is computed again and subtracted from the signal.
+With the two signals close together, another problem becomes apparent. They are offset in time. This makes sense, as both measurements cannot easily be started at exactly the same time. We need to introduce a starting offset. This starting offset should minimize the deviation between both signals. This is achieved by iteratively increasing a starting offset and capturing the offset that resulted in the least deviation. In @left_wrist_axis_z_positions_frame_offset, it is shown that this method finds the most perfect offset. Both signals are perfectly aligned in time. After this offset operation, the average vertical offset is computed again and subtracted from the signal.
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis with the time offset removed.])[
   #image(width: 100%, "../images/left_wrist_axis_z_positions_frame_offset.svg")
 ] <left_wrist_axis_z_positions_frame_offset>
 
+==== Scaling
 
-The final and most intricate part of the alignment is getting the scaling right. As we can see in the previous plots the scale of the signal is not at all correct. Here a scaling factor needs to be found that minimizes the deviation. There is one caveat, we cannot simply scale the signal by multiplying it with a given factor. This would scale the signal away from the origin point. One can see that, in fact, we should "stretch" the signal vertically to make it align. In other words, the signal needs to be scaled around the center point of the signal that it is being aligned to.
+The final and most intricate part of the alignment is getting the scaling right. As we can see in the previous plots, the scale of the signal is not at all correct. Here, a scaling factor needs to be found that minimizes the deviation. There is one caveat, we cannot simply scale the signal by multiplying it with a given factor. This would scale the signal away from the origin point. One can see that, in fact, we should "stretch" the signal vertically to make it align. In other words, the signal needs to be scaled around the center point of the signal that it is being aligned to.
 
 The center point of the signal is easily calculated as the average of the signal's values.
 The stretching of the signal then goes as follows: For every original point of the signal, take the difference between that point and the center point of the other signal. Scale the difference by the scaling factor. The new stretched point is now the center point plus the scaled difference.
 
 The previous method of finding the optimal time offset is a simple one. Since it is a discrete problem, the optimal value can easily be found by testing all possible values.
-The optimal scale, however, is not a discrete value. To find the optimal scaling factor we need an optimization algorithm.
+The optimal scale, however, is not a discrete value. To find the optimal scaling factor, we need an optimization algorithm.
 
 The optimization problem at hand can be solved using Golden-section search @golden-section-search.
 #footnote[During the measurement we found that the depth axis, the X axis, is so inaccurate that it is not possible to use the described method to align the signals. The golden section search would converge to a scaling factor of 0, which minimizes the deviation. This is not a useful result. This is why the depth axis always has a fixed scale of 0.5 applied to it. It is a value that was found to produce the best alignment in the measurements.]  
-It is a technique for finding an extremum (minimum or maximum) of a function inside a specified interval @golden-section-search-wiki. Which in our case the function is the deviation function that takes in the scale factor and outputs the deviation after applying the scale. The algorithm converges to one extremum by narrowing down an interval of possible values. Without going into too much detail on the algorithm and its implementation, the algorithm is initialized to search within a range of [0, 10] as possible scale factors and stops when the improvements in deviation fall below 0.01 mm.
+It is a technique for finding an extremum (minimum or maximum) of a function inside a specified interval @golden-section-search-wiki. In our case, the function is the deviation function that takes as input the scale factor and outputs the deviation after applying the scale. The algorithm converges to one extremum by narrowing down an interval of possible values. Without going into too much detail on the algorithm and its implementation, the algorithm is initialized to search within a range of [0, 10] as possible scale factors and stops when the improvements in deviation fall below 0.01 mm.
 Applying the Golden-section search method on our running example returns a scale factor of around 2 and results in a nice alignment between both signals (@left_wrist_axis_z_positions_stretch). The factor of 2 also makes sense. In the `Landmark` mode, the range of values lie between 0 and 1, reaching these outer values at the edges of the frame. As mentioned, the `Landmark` signal is interpreted to be in meter. As a consequence, the scaling factor is not only a scaling factor, it has become a measurement of the dimensions of what is visible in the frame. This means that the visible height in the video frame is 2 meters, at the location of the test subject, of course.
 
 #figure(caption: [Plot of the MediaPipe (Blue) and Qualisys (Red) left wrist z-axis with the MediaPipe signal scaled to match.])[

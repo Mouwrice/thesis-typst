@@ -19,7 +19,6 @@
   bibliography: bibliography("bib.yml"),
 )
 
-
 #include "introduction.typ"
 
 #include "sota.typ"
