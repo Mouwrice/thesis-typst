@@ -50,9 +50,21 @@ The model of interest in the collection of models is RTMPose @rtmpose. RTMPose i
 
 AlphaPose is yet another open-source, multi-person pose estimator @alphapose, based on the research paper "RMPE: Regional Multi-person Pose Estimation" @alphapose-paper. It is one of the earlier body pose estimation tools originating from 2017. Being an older tool, its accuracy and performance are not as high as some of the newer tools, such as RTMPose. Besides, it is one of those tools that is not maintained once the research paper has been published, making it unfit for actual usage.
 
+== OpenPose 
+
+#figure(caption: [OpenPose keypoints example.])[
+  #image("images/openpose.gif")
+] <openpose-example>
+
+OpenPose, released in 2018, is the first real-time multi-person system to jointly detect human body, hand,
+facial, and foot keypoints (in total 135 keypoints) on single images (@openpose-example). It is based on the research paper "OpenPose: Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields" @openpose-paper. OpenPose is a popular tool that is still maintained to this day. It supports all major operating systems and can run on consumer-grade hardware. OpenPose supports the detection and tracking of the poses of multiple people in the frame. As we do not need to track multiple individuals, this feature can be disabled, leading to an increase in performance according to the documentation. OpenPose stands out as it also provides 3D key point detection using triangulation from multiple views. This is a feature that is not present in many of the other tools in this section. OpenPose is a strong candidate for our application, but the lack of 3D pose estimation using a single camera is a dealbreaker.
+
+
 == MindPose
 
-MindPose is the last tool that we will discuss in this section. It is the result of an open-source project jointly developed by the MindSpore team.
+MindPose is the last tool that we will discuss in this section. It is the result of an open-source project jointly developed by the MindSpore
 #footnote[
    MindSpore is an open-source AI framework developed by Huawei. It is a deep learning and machine learning framework that is used for training and inference of AI models. #link("https://www.mindspore.cn/")[https://www.mindspore.cn/ #link-icon]
 ]
+team @mindpose. MindPose is a toolbox or python framework that allows for the training and inference of pose estimation models. Unfortunately, the project seems to be abandoned and unfinished. The project also appears to be rather bare bones, with no examples and few documentation. It provides support for three body pose estimation models from 2018 and 2019. The models are HRNet, SimpleBaseline and UDP @hrnet @simplebaseline @udp. These models do not seem to focus on real-time applications, and they do not provide 3D pose estimation. The project is not suitable for our application, but it is interesting to see that Huawei is also working on pose estimation tools.
+

@@ -211,3 +211,35 @@ kalman-filter:
   url:
     value: https://en.wikipedia.org/wiki/Kalman_filter
     date: 2024-05-20
+
+simplebaseline:
+  type: article
+  title: "Simple Baselines for Human Pose Estimation and Tracking"
+  author: [Bin Xiao, Haiping Wu, Yichen Wei]
+  date: 2018
+  url:
+    value: http://arxiv.org/abs/1804.06208
+
+hrnet:
+  type: article
+  title: Deep High-Resolution Representation Learning for Visual Recognition
+  author: [Jingdong Wang, Ke Sun, Tianheng Cheng, Borui Jiang, Chaorui Deng, Yang Zhao, Dong Liu, Yadong Mu, Mingkui Tan, Xinggang Wang, Wenyu Liu, Bin Xiao]
+  date: 2019
+  url:
+    value: http://arxiv.org/abs/1908.07919
+
+udp:
+  type: article
+  title: "The Devil is in the Details: Delving into Unbiased Data Processing for Human Pose Estimation"
+  author: [Junjie Huang, Zheng Zhu, Feng Guo, Guan Huang]
+  date: 2019
+  url:
+    value: http://arxiv.org/abs/1911.07524
+
+openpose-paper:
+  type: article
+  title: "OpenPose: Realtime Multi-Person 2D Pose Estimation using Part Affinity Fields"
+  author: [Zhe Cao, Gines Hidalgo, Tomas Simon, Shih-En Wei, Yaser Sheikh]
+  date: 2018
+  url:
+    value: https://dl.acm.org/doi/10.1109/TPAMI.2019.2929257
