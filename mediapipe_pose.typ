@@ -11,7 +11,7 @@ MediaPipe Pose is available on three different platforms. One can use it in Pyth
   Following the announcement at Google I/O 2024, MediaPipe is now part of the larger Google AI Edge collection of tools and solutions. #link("https://ai.google.dev/edge")[https://ai.google.dev/edge #link-icon]
 ]
 
-=== Features
+== Features
 
 The main feature of MediaPipe Pose is of course, just as all body pose estimation tools, to extract the body pose from a given image or video frame. Unlike many other body pose estimation tools, MediaPipe delivers a 3D estimation instead of the more common 2D estimation, by introducing depth. However, in the measurement results, this added depth dimensionality is shown to be less than ideal.
 
@@ -28,14 +28,14 @@ One other feature other than returning the body pose is the creation of an image
 #footnote[A segmentation mask is a grayscale image, sometimes just pure black and white, with the goal of partitioning the image into segments. For example, the MediaPipe segmentation mask colours all pixels white where the human silhouette is visible.] 
 MediaPipe has the ability to output a segmentation mask of the detected body pose. This mask could be used for e.g. applying some visual effects and post-processing, but it is not of much use in this implementation.
 
-=== Inference models
+== Inference models
 
 MediaPipe Pose is based on two computer vision models for the inference of the body pose. The first one is BlazePose which is only designed to return two-dimensional data in the given frame @blazepose. A second is the GHUM model, a model that captures 3D meshes given human body scans. A synthetic depth is obtained via the GHUM model fitted to the 2D points @ghum.
 
 The Pose task consists of 3 `.task` files that contain the actual detection task and models. Three models are available: Lite (3 MB size), Full (6 MB size) and Heavy (26 MB size).
 The measurement results will prove that the larger models can provide a more accurate and correct result but at reduced inference speeds. There is a trade-off to be made between accuracy and real-time processing. Although the Heavy model is almost 9 times larger than the Lite model, the improvement in accuracy is a lot smaller. The Lite model is not considerably worse and produces fine results for the drumming application.
 
-==== BlazePose
+=== BlazePose
 
 BlazePose provides human pose tracking by employing machine learning (ML) to infer 33, 2D landmarks of a body from a single frame @blazepose. A standard for body pose originating from 2020 is the COCO topology @coco. The COCO 2020 Keypoint Detection Task is a challenge to develop a solution to accurately detect and locate the keypoints from the COCO dataset. The original COCO topology only consists of 17 landmarks. With little to no landmarks on the hands and feet. BlazePose extends this topology to a total of 33 landmarks by providing landmarks for the hands and feet as well. These added landmarks are crucial for the drumming application and is part of the reason MediaPipe was chosen.
 
@@ -66,6 +66,6 @@ The model takes an image as input with a fixed size of 256 by 256 pixels and 3 v
   #image("images/mediapipe_network.jpg")
 ] <mediapipe-network>
 
-==== GHUM (Generative 3D Human Shape and Articulated Pose Models)
+=== GHUM (Generative 3D Human Shape and Articulated Pose Models)
 
 As mentioned, MediaPipe Pose offers an extra dimension unlike many other purely 2D pose estimation tools. This third dimension is, of course, depth. It does so by utilising an entirely different model, being the GHUM model @ghum. The GHUM model can construct a full 3D body mesh given image scans of a person. The outputs form an actual 3D mesh of 10,168 vertices for the regular model and 3,194 vertices for the lite model. MediaPipe is quite vague on the exact usage of this model in the pose solution. The only mention of GHUM is in the following sentence: _"Keypoint Z-value estimate is provided using synthetic data, obtained via the GHUM model (articulated 3D human shape model) fitted to 2D point projections."_ @mediapipe-model-card. Nonetheless, in the measurements it is shown that there is some notion of depth, but it is far from accurate. Especially when compared to the other 2D values provided by the BlazePose model.

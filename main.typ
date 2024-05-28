@@ -19,10 +19,6 @@
   bibliography: bibliography("bib.yml"),
 )
 
-#import "@preview/wordometer:0.1.2": word-count, total-words
-#show: word-count
-
-#total-words
 
 #include "introduction.typ"
 
