@@ -53,8 +53,6 @@
 
   pagebreak()
 
-  set page(numbering: "I")
-  counter(page).update(1)
 
   // Display abstract and index terms.
   if abstract != none [
@@ -71,9 +69,6 @@
 
   // Table of contents.
   outline(depth: 3, indent: true)
-
-  set page(numbering: "1")
-  counter(page).update(1)
 
   set par(leading: 10pt, justify: true)
   show par: set block(above: 1em, below: 2em)
@@ -112,6 +107,9 @@
   set-page-properties()
   
   show heading.where(level: 1): it => pagebreak(weak: true) + it
+
+  set page(numbering: "1")
+  counter(page).update(1)
 
   // Display the paper's contents.
   body
